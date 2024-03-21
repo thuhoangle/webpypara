@@ -3,7 +3,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import Header from "../../components/Header.jsx";
+import HeaderHome from "../../components/HeaderHome.jsx";
 import { RiFocus2Line } from "react-icons/ri";
 import line from "../../assets/line.png";
 
@@ -13,7 +13,7 @@ const Home = () => {
     ]
     return (
         <div>
-            <Header></Header>
+            <HeaderHome></HeaderHome>
             <div className={'py-20 justify-center items-center flex flex-row gap-2'}>
                 <RiFocus2Line/>
                 <p className={'font-bold font-mono text-[35px] text-black'}> A website for Website Application

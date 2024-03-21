@@ -1,9 +1,10 @@
 import React from 'react'
 import img from "./../assets/coolncry.jpeg"
 
+
 function UserPosts() {
     return (
-        <div className="lg:w-8/12 lg:mx-auto mb-8">
+        <div className="lg:w-8/12 lg:mx-auto mb-8 ">
         <div className="flex flex-wrap -mx-px md:-mx-3">
             <div className="w-1/3 p-px md:px-3">
                 <a href="#">
