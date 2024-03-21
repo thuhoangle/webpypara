@@ -17,7 +17,7 @@ function Info() {
                 </div>
                 <div className={'self-center'}>
                     <div
-                        className="cursor-pointer inline text-[15px] text-gray-700 p-1 px-4 border border-gray-200 rounded-full mr-4">Edit
+                        className="cursor-pointer inline text-[15px] text-gray-700 p-1 px-5 border border-black rounded-full mr-4">Edit
                     </div>
                     <IoIosMore className={'cursor-pointer h-6 inline'}/>
                 </div>

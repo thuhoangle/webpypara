@@ -1,32 +1,20 @@
 import React from 'react'
-import logo from './../assets/img.png';
-import { FiSearch } from "react-icons/fi";
-import { GoHomeFill } from "react-icons/go";
-import { FaRegCircleUser } from "react-icons/fa6";
+import logo from "@/assets/img.png";
+import {AiOutlineMeh} from "react-icons/ai";
+import Marquee from "react-fast-marquee";
 
 function Header() {
     return (
-        <div className={'w-screen'}>
-            <div className={'px-7 py-2 flex justify-between items-center'}>
-                <img src={logo} className={'logo'}/>
-                <div className={'cursor-pointer gap-10 items-center flex rounded-3xl bg-zinc-100 px-9 py-2'}>
-                    <GoHomeFill className={'w-7 h-7 '}/>
-                    <FiSearch className={'text-gray-400 w-7 h-7 stroke-1 '}/>
-                    <div>
-                        <FaRegCircleUser className={'text-gray-400 w-7 h-7 '}/>
-                    </div>
-                </div>
-                <a
-                    className="relative bg-white rounded-full border border-solid border-black"
-                    href="Github↗"
-                    target="_blank"
-                >
-                    <div
-                        className="px-4 py-2 font-thin text-center text-black">
-                        GITHUB↗
-                    </div>
-                </a>
+        <div className={'bg-white'}>
+            <div className="my-2 flex justify-center  items-center ">
+                <img src={logo} className={'w-28 h-28'}/>
             </div>
+            <Marquee autoFill={true} className={'bg-black text-bold text-[15px] align-middle py-1 mb-10'} >
+                <p className={'text-white pr-2'}> DEVELOPED BY LE THU HOANG AND BUI DOAN THE SANG </p>
+                <AiOutlineMeh className={'text-white pr-2 text-[25px]'} />
+                <p className={'text-white pr-2'}> A PROJECT FOR WEBSITE APPLICATION DEVELOPMENT COURSE </p>
+                <AiOutlineMeh className={'text-white pr-2 text-[25px]'} />
+            </Marquee>
         </div>
     )
 }
