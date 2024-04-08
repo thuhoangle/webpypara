@@ -4,21 +4,42 @@ import ava from "./../assets/ava.jpeg";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
-    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import {Form, FormControl, FormField, FormItem} from "@/components/ui/form.jsx";
+// import PostForm from "@/components/PostForm.jsx";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {titleValid} from "@/lib/validation/index.js";
+import {Textarea} from "@/components/ui/textarea.jsx";
 
 
+const form = useForm({
+    resolver: zodResolver(titleValid),
+    defaultValues: {
+        title: "",
+        file: [],
+        note:"",
+        caption: ""
+
+        // title: post ? post?.title : "",
+        // file: [],
+        // note: post ? post?.note : "",
+        // caption: post ? post?.caption : ""
+
+    },
+});
+function onSubmit(values) {
+    console.log(values);
+}
 const CreatePost = () => {
     return (
-    // z-index:660; right: 0px
         <div >
             <Dialog>
                 <DialogTrigger asChild >
@@ -36,6 +57,22 @@ const CreatePost = () => {
                             </div>
                         </div>
                     </DialogHeader>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-x-5xl">
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({field}) => (
+                                    <FormItem>
+                                        {/*ADD TITLE*/}
+                                        {/*<FormLabel>Title</FormLabel>*/}
+                                        <FormControl>
+                                            <Textarea placeholder='Add title' {...field} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+
                     <div className="flex items-center justify-center w-full">
                         <label htmlFor="dropzone-file"
                                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -51,9 +88,40 @@ const CreatePost = () => {
                             <input id="dropzone-file" type="file" className="hidden"/>
                         </label>
                     </div>
+                            <FormField
+                                control={form.control}
+                                name="Note"
+                                render={({field}) => (
+                                    <FormItem>
+                                        {/*<FormLabel>Add note</FormLabel>*/}
+                                        <FormControl>
+                                            <Input type="text" placeholder="Add note" {...field}/>
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
 
+                            <FormField
+                                control={form.control}
+                                name="Caption"
+                                render={({field}) => (
+                                    <FormItem>
+                                        {/*<FormLabel>Add caption</FormLabel>*/}
+                                        <FormControl>
+                                            <Input type="text" placeholder="Add caption" {...field}/>
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                        </form>
+                    </Form>
+
+                    {/*    <PostForm/>*/}
                     <DialogFooter>
-                        <Button type="submit">Next</Button>
+                        <div className='flex gap-4 items-center justify-between'>
+                            <Button type='button' className='shad-button_dark_4'>Back</Button>
+                            <Button type='submit'>Submit</Button>
+                        </div>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
