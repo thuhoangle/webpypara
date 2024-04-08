@@ -1,11 +1,7 @@
 import React from 'react'
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
-import HeaderHome from "../../components/HeaderHome.jsx";
 import { RiFocus2Line } from "react-icons/ri";
 import line from "../../assets/line.png";
+import {HeaderHome} from "@/components/index.js";
 
 const Home = () => {
     let Links =[
@@ -13,7 +9,7 @@ const Home = () => {
     ]
     return (
         <div>
-            <HeaderHome></HeaderHome>
+            <HeaderHome/>
             <div className={'py-20 justify-center items-center flex flex-row gap-2'}>
                 <RiFocus2Line/>
                 <p className={'font-bold font-mono text-[35px] text-black'}> A website for Website Application
@@ -38,7 +34,7 @@ const Home = () => {
                 <img src={line}/>
 
                 <div className={'flex flex-row gap-20'}>
-                    <a href={"https://github.com/thuhoangle"} target={'_blank'}
+                    <a href={"https://github.com/thuhoangle/webpypara"} target={'_blank'}
                        className={'mt-[20px] bg-white rounded-full border border-black'}>
                         <div className={'px-4 py-2 font-mono font-thin text-[20px] text-black text-center'}>GITHUB↗
                         </div>

@@ -1,18 +1,18 @@
 import React from 'react'
-import logo from '../../assets/img.png';
-import UserPosts from "../../components/UserPosts.jsx";
-import { AiOutlineMeh } from "react-icons/ai";
-import Info from "../../components/Info.jsx";
-import Header from "@/components/Header.jsx";
-import CreatePost from "@/components/createPost.jsx";
-function UserPage() {
+import Header from '@/components/Header.jsx';
+import {Container, Flex} from "@chakra-ui/react";
+
+
+const UserPage = () => {
     return (
-        <div className={'bg-gray-200'}>
-            <Header></Header>
-            <Info></Info>
-            <UserPosts></UserPosts>
-            <CreatePost></CreatePost>
-        </div>
+        <Container maxW={'container.lg'} py={5}>
+            <Flex direction={'column'} pl={{base:4, md:10}} className={'py-2.5 px-1 w-full mx-auto'}>
+                <Header/>
+            </Flex>
+            <Flex>
+
+            </Flex>
+        </Container>
     )
 }
 
