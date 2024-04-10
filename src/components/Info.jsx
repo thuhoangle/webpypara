@@ -6,11 +6,13 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import {Flex, Container, VStack, Text} from "@chakra-ui/react";
+import {Flex, Container, VStack, Text, Button as Btn} from "@chakra-ui/react";
 import { Avatar, AvatarGroup, Textarea } from '@chakra-ui/react'
-import {NavLink} from "react-router-dom";
+import useLogout from "@/hook/useLogout.js";
 
 function Info() {
+    const{handleLogout, isLoggingOut} = useLogout()
+
     return (
     <Flex gap={{base:3, sm:8}} py={10} direction={{base:'column', sm:'row'}} borderBottom={'1px solid'}>
         <AvatarGroup size={{base:'xl', md:'2xl'}} className={'justify-center self-start mx-auto'}>
@@ -86,13 +88,13 @@ function Info() {
                             {/*<DropdownMenu.Item>*/}
                             {/*    <span className='font-bold text-red-700'>Block</span>*/}
                             {/*</DropdownMenu.Item>*/}
-                            <DropdownMenu.Item className={'px-3 font-medium text-sm '}>
-                                Copy Link
+                            <DropdownMenu.Item className={'px-2'} >
+                                <Btn size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={'justify-start hover:bg-transparent '}>Copy link</Btn>
                             </DropdownMenu.Item>
                             <DropdownMenu.Separator className="h-[1px] bg-gray-700 "/>
 
-                            <DropdownMenu.Item className={'px-3 font-medium text-sm text-red-500'}>
-                                <NavLink to={'/auth'}>Log out</NavLink>
+                            <DropdownMenu.Item className={'px-2'}  >
+                                <Btn colorScheme={'red'} size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} isLoading={isLoggingOut} onClick={handleLogout} className={'justify-start hover:bg-transparent '}>Log out</Btn>
                             </DropdownMenu.Item>
 
 

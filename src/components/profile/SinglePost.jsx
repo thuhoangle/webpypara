@@ -36,14 +36,15 @@ const SinglePost = ({ img }) => {
             <Image src={img} alt={'post'} className={'w-full h-full object-cover'}/>
         </GridItem>
             {/*size={{base:"lg", md:"3xl", lg:"6xl"}}*/}
-        <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={{base:"lg", md:"3xl", lg:"5xl"}} h={'100vh'} bg={'transparent'} >
+            {/*{base:"lg", md:"3xl", lg:"5xl"}*/}
+        <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={{ base:"3xl", md:"5xl"}} h={'100vh'} bg={'transparent'} >
             <ModalOverlay />
             <ModalContent>
                 <ModalCloseButton />
-                <ModalBody className={'pb-1.5 w-xl'} >
-                    <Flex w={{base: "90%", sm: "70%", md: "full"}} className={'gap-1 mx-auto'}>
-                        {/*<Box className={'overflow-hidden border-2 border-1-solid border-white flex-grow-1.5'}>*/}
-                            <div className="embla overflow-hidden  border-2 border-1-solid border-white flex-grow-1.5 ">
+                <ModalBody className={'pb-5 w-xl'} >
+                    <Flex w={{base: "90%", sm: "70%", md: "full"}} gap={4} className={' mx-auto'}>
+                        <Box className={'overflow-hidden border-2 border-1-solid border-white flex-grow-1.5'}>
+                            {/*<div className="embla overflow-hidden  border-2 border-1-solid border-white flex-grow-1.5 ">*/}
                                 <div className="embla__viewport" ref={emblaRef}>
                                     <div className="embla__container flex">
                                         <div className="embla__slide flex-grow min-w-0">
@@ -61,15 +62,17 @@ const SinglePost = ({ img }) => {
                                     <button className="embla__next" onClick={scrollNext}>
                                         Next
                                     </button>
-                            </div>
-                        {/*</Box>*/}
-                        <Flex display={{base: "none", md: "flex"}} className={'flex-grow-1 w-100% flex-col px-2.5 '}>
+                            {/*</div>*/}
+                        </Box>
+                        <Flex display={{base: "none", md: "flex"}} flex={1}  className={'w-full  flex-col  pr-0 pl-2  '}>
                             <Flex className={'items-center justify-start gap-2'}>
                                 <Avatar src={'src/assets/ava.jpeg'} size={'sm'}/>
                                 <p className={'font-bold text-sm'}>shiba</p>
                             </Flex>
                             <Divider className={'my-2 bg-gray-500'}/>
-                            <VStack className={'w-full max-h-[350px] overflow-y-auto '}>
+                            {/*max-h-[350px]*/}
+
+                            <VStack alignItems={'flex-start'} className={'w-full max-h-full overflow-y-auto '}>
                                 <Comment
                                     createdAt={'2d ago'}
                                     username={'shinchan'}
@@ -86,10 +89,47 @@ const SinglePost = ({ img }) => {
                                     createdAt={'2d ago'}
                                     username={'yoboiBoo'}
                                     profilePic={'/boo.jpeg'}
-                                    text={'sheeshhh'}
+                                    text={'sheeshh'}
                                 />
+                                <Comment
+                                    createdAt={'2d ago'}
+                                    username={'yoboiBoo'}
+                                    profilePic={'/boo.jpeg'}
+                                    text={'sheeshh'}
+                                />
+                                <Comment
+                                    createdAt={'2d ago'}
+                                    username={'yoboiBoo'}
+                                    profilePic={'/boo.jpeg'}
+                                    text={'sheeshh'}
+                                />
+                                <Comment
+                                    createdAt={'2d ago'}
+                                    username={'yoboiBoo'}
+                                    profilePic={'/boo.jpeg'}
+                                    text={'sheeshh'}
+                                />
+                                <Comment
+                                    createdAt={'2d ago'}
+                                    username={'yoboiBoo'}
+                                    profilePic={'/boo.jpeg'}
+                                    text={'sheeshh'}
+                                />
+                                <Comment
+                                    createdAt={'2d ago'}
+                                    username={'yoboiBoo'}
+                                    profilePic={'/boo.jpeg'}
+                                    text={'sheeshh'}
+                                />
+                                <Comment
+                                    createdAt={'2d ago'}
+                                    username={'yoboiBoo'}
+                                    profilePic={'/boo.jpeg'}
+                                    text={'sheesvdfbgbgnrhh'}
+                                />
+
                             </VStack>
-                            <Divider my={4} bg={'gray.800'}/>
+ 
                             <PostFooter isProfilePic={true}/>
                         </Flex>
                     </Flex>
