@@ -10,7 +10,7 @@ const Profile = () => {
         <Grid templateColumns='200px auto 200px'
               templateAreas={`"sidebar1 main sidebar2"`}
         >
-            <GridItem bg='orange.300' area={'sidebar1'}>
+            <GridItem bg='orange.300' area={'sidebar1'} display={{base: 'none', md: "block"}}>
                 <MusicBox/>
             </GridItem>
             <GridItem area={'main'} className={'py-2'}>
