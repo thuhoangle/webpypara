@@ -9,7 +9,8 @@ const Tabs = () => {
                 <Text fontSize={'sm'} display={{base:'none', sm:'block'}}>Posts</Text>
             </Flex>
             <Flex className={'cursor-pointer items-center p-1 gap-1'}>
-                <Text color={'gray'} fontSize={'sm'} display={{base:'none', sm:'block'}}>Liked posts</Text>
+                <Text color={'gray'} fontSize={'sm'} display={{base:'none', sm:'block'}}>Saved
+                    posts</Text>
             </Flex>
         </Flex>
     )

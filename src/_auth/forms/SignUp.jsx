@@ -46,7 +46,7 @@ const SignUp = () => {
                                 value={inputs.password}
                                 onChange={(e) => setInputs({...inputs, password:e.target.value})}
                     />
-                    <FormHelperText>Must be at least 8 characters</FormHelperText>
+                    <FormHelperText>Must be at least 6 characters</FormHelperText>
                 </FormControl>
                 <FormControl name="confirmPassword" >
                         <FormLabel>Confirm password</FormLabel>

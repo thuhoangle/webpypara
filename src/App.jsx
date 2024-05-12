@@ -1,48 +1,25 @@
-import{ BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate} from 'react-router-dom'
 import Home from "@/_root/pages/Home.jsx";
-
-import UserPage from "@/_root/pages/UserPage.jsx";
 import AuthPage from "@/_auth/AuthPage.jsx";
 import PageLayout from "@/Layout/PageLayout.jsx";
 import Profile from "@/_root/pages/Profile.jsx";
+import {auth} from "@/firebase/firebase.js";
+import {useAuthState} from "react-firebase-hooks/auth";
 
 function App() {
-
+    const [authUser] = useAuthState(auth)
 
   return (
       <PageLayout>
           <Routes>
-              <Route path={'/'} element={ <Home /> } />
-              <Route path='/auth' element={<AuthPage/>} />
-              {/*<Route path='/shibapawpaw' element={<UserPage/>} />*/}
+              {/*element={ <Home /> }*/}
+              <Route path={'/'} element={ authUser? <Home /> : <Navigate to="/auth" /> }/>
+              <Route path='/auth' element={!authUser ? <AuthPage/> : <Navigate to="/" /> } />
               <Route path='/:username' element={<Profile/>} />
+              {/*<Route path='/profile' element={<Profile/>} />*/}
           </Routes>
       </PageLayout>
 
-    //   <Router>
-    //       <AuthProvider>
-    //       {/*<Header/>*/}
-    // {/*<main className={'flex h-screen'}>*/}
-    //           <Routes>
-    //             {/*public routes*/}
-    //             {/*  <Route element={<AuthLayout/>}>*/}
-    //             {/*  <Route>*/}
-    //             {/*      /!*<Route path="/auth" element={<Login />}></Route>*!/*/}
-    //             {/*      <Route path="/login" element={<Login />}></Route>*/}
-    //             {/*      <Route path="/signup" element={<SignUp />}></Route>*/}
-    //             {/*  </Route>*/}
-    //
-    //
-    //             {/*private routes*/}
-    //               <Route element={<RootLayout/>}>
-    //                   <Route path='/' element={<Home/>}></Route>
-    //                   <Route path='/auth' element={<AuthPage/>}></Route>
-    //                   <Route path='/user' element={<UserPage/>}></Route>
-    //               </Route>
-    //           </Routes>
-    // {/*</main>*/}
-    //       </AuthProvider>
-    //   </Router>
   )
 }
 
