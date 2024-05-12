@@ -1,24 +1,64 @@
 import React from 'react'
 import logo from './../assets/img.png';
-import { FiSearch } from "react-icons/fi";
-import { GoHomeFill } from "react-icons/go";
+import { RiHomeFill } from "react-icons/ri";
 import { FaRegCircleUser } from "react-icons/fa6";
-import { Avatar } from '@chakra-ui/react'
-import {NavLink} from "react-router-dom";
+import {Avatar, Link, Tooltip} from '@chakra-ui/react'
+import {Link as RouterLink} from "react-router-dom";
+import useAuthStore from "@/store/authStore.js";
+import SearchProfile from "@/components/search/SearchProfile.jsx";
 
 function HeaderHome() {
+    const authUser = useAuthStore(state => state.user)
+
+    // const menuItems = [
+    //     {
+    //         icon: <GoHomeFill className={'w-6 h-6 text-gray-600 '}/>,
+    //         text: "Home",
+    //         link: "/",
+    //     },
+    //     {
+    //         icon: <FiSearch className={'text-gray-400 hover:text-gray-500 w-6 h-6 stroke-2 '}/>,
+    //         text: "Search",
+    //     },
+    //     {
+    //         icon: <FaRegCircleUser className={'text-gray-400 w-6 h-6 hover:text-gray-500 '}/>,
+    //         text: "Profile",
+    //         link: `/${authUser?.username}`,
+    //     }
+    // ]
+
     return (
         <div className={'w-screen'}>
             <div className={'px-7 py-2 flex justify-between items-center'}>
                 <Avatar size={'xl'} name={'logo'} src={logo} />
-                <div className={'cursor-pointer gap-10 items-center flex rounded-full bg-zinc-100 px-9 py-2'}>
-                    <NavLink to={'/'}>
-                        <GoHomeFill className={'w-6 h-6 text-gray-600 '}/>
-                    </NavLink>
-                    <FiSearch className={'text-gray-400 hover:text-gray-500 w-6 h-6 stroke-2 '}/>
-                    <NavLink to={'/profile'}>
-                        <FaRegCircleUser className={'text-zinc-400 w-6 h-6 hover:text-gray-500 '}/>
-                    </NavLink>
+                <div className={'cursor-pointer px-4 py-2 gap-10 items-center flex rounded-full bg-zinc-100 px-9'}>
+
+                    {/*{menuItems.map((item, index) => (*/}
+                    {/*    <Tooltip key={index} hasArrow label={item.text} placement={'bottom'} openDelay={300}>*/}
+                    {/*        <Link to={item.link || null} as={RouterLink}  alignItems={'center'}  className={'rounded-full p-2 hover:bg-slate-50'} >*/}
+                    {/*            {item.icon}*/}
+                    {/*        </Link>*/}
+                    {/*    </Tooltip>*/}
+                    {/*))}*/}
+
+                    <Tooltip label={"You're on home"} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >
+                        <Link to="/" as={RouterLink} alignItems={'center'}  className={''} >
+                            <RiHomeFill className={'w-6 h-6 text-gray-700'}/>
+                        </Link>
+                    </Tooltip>
+
+                    <Tooltip label={"Search"} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >
+                        <div className={'text-gray-400 hover:text-gray-600'}>
+                            <SearchProfile className={'  w-6 h-6 '}/>
+                        </div>
+                    </Tooltip>
+
+                    <Tooltip label={"Profile"} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >
+                        <Link to={`/${authUser?.username}`} as={RouterLink} alignItems={'center'} >
+                            <FaRegCircleUser className={'text-gray-400 w-6 h-6 hover:text-gray-500'}/>
+                        </Link>
+                    </Tooltip>
+
                 </div>
                 <a
                     className="relative bg-white rounded-full border border-solid border-black"

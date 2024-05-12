@@ -3,7 +3,6 @@ import logo from "@/assets/img.png";
 import {AiOutlineMeh} from "react-icons/ai";
 import Marquee from "react-fast-marquee";
 import {Avatar} from "@chakra-ui/react";
-import {Box} from "@chakra-ui/react";
 import {NavLink} from "react-router-dom";
 
 function Header() {

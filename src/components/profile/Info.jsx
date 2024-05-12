@@ -1,108 +1,87 @@
 import React from 'react'
-import ava from "./../assets/ava.jpeg";
 import { CiCircleMore } from "react-icons/ci";
-import { Button } from "@/components/ui/button"
-import * as Dialog from '@radix-ui/react-dialog';
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+// import { Button } from "@/components/ui/button"
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import {Flex, Container, VStack, Text, Button as Btn} from "@chakra-ui/react";
-import { Avatar, AvatarGroup, Textarea } from '@chakra-ui/react'
+import {Flex, VStack, Text, Button} from "@chakra-ui/react";
+import { Avatar, AvatarGroup } from '@chakra-ui/react'
 import useLogout from "@/hook/useLogout.js";
+import useProfileStore from "@/store/ProfileStore.js";
+import useAuthStore from "@/store/authStore.js";
+import EditProfile from "@/components/profile/EditProfile.jsx";
+import useFollow from "@/hook/useFollow.jsx";
 
 function Info() {
     const{handleLogout, isLoggingOut} = useLogout()
+    const {userProfile} = useProfileStore();
+    const authUser = useAuthStore((state) => state.user);
+    const {isFollowing, isUpdating, handleFollowUser} = useFollow(userProfile?.uid);
+    const visitingOwnProfileAndAuth = authUser && authUser.username === userProfile.username;
+    const visitingAnotherProfileAndAuth = authUser && authUser.username !== userProfile.username;
 
     return (
-    <Flex gap={{base:3, sm:8}} py={10} direction={{base:'column', sm:'row'}} borderBottom={'1px solid'}>
+    <Flex gap={{base:3, sm:8}} p={10} direction={{base:'column', sm:'row'}} borderBottom={'1px solid'}>
         <AvatarGroup size={{base:'xl', md:'2xl'}} className={'justify-center self-start mx-auto'}>
-            <Avatar name="profilePic" src={ava} />
+            <Avatar name="profilePic" src={userProfile.profilePicURL} alt={'Avatar'} />
         </AvatarGroup>
 
         <VStack className={'items-start gap-1 mx-auto flex-1'}>
             <Flex gap={4} direction={{base: 'column', sm: 'row'}} justifyContent={{base: 'center', sm: 'space-between'}}
                   className={'w-full items-center'}>
-                <div className={'flex flex-col justify-between items-start h-full'}>
-                    <div>
-                        <Text fontSize={{base: 'xl', md: '2xl'}} className=" font-semibold mr-4">shiba</Text>
-                        <Text fontSize={{base: 'sm', md: 'md'}} className="font-medium mr-4">@shibapawpaw</Text>
-                    </div>
+                <div className='pt-2'>
+                    <Text fontSize={{base: 'xl', md: '2xl'}} className=" font-semibold mr-4">{userProfile.fullName}</Text>
+                    <Text fontSize={{base: 'base', md: 'lg'}} className=" font-normal mr-4">@{userProfile.username}</Text>
+                </div>
                     {/*<Text fontSize={{base: 'md', md: 'lg'}} className="font-medium mr-4">a gate-keeping place</Text>*/}
-                </div>
-                <div className={'flex flex-row justify-end gap-1'}>
-                    <Dialog.Root>
-                        <Dialog.Trigger asChild>
-                            <Button variant="outline" size={'sm'} className={'rounded-full  border-black'}>Edit Profile</Button>
-                        </Dialog.Trigger>
-                        <Dialog.Portal>
-                            <Dialog.Overlay className="bg-gray-200 data-[state=open]:bg-opacity-50 fixed inset-0"/>
-                            <Dialog.Content
-                                className={'top-[20%] left-[35%] bg-white max-w-[450px] data-[state=open]:animate-contentShow fixed  max-h-[85vh] w-[90vw] rounded-[6px] p-[25px] focus:outline-none'}>
-                                <Dialog.Title className={'font-bold text-xl'}>Edit profile</Dialog.Title>
-                                <div className="grid gap-4 py-4 mt-5">
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="name" className="text-right">
-                                            Name
-                                        </Label>
-                                        <Input
-                                            id="name"
-                                            defaultValue="shiba"
-                                            className="col-span-3"
-                                        />
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="username" className="text-right">
-                                            Username
-                                        </Label>
-                                        <Input
-                                            id="username"
-                                            defaultValue="@shibapawpaw"
-                                            className="col-span-3"
-                                        />
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="desp" className="text-right">
-                                            Description
-                                        </Label>
-                                        <Textarea
-                                            placeholder=""
-                                            className="resize-none col-span-3"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="mt-[25px] flex justify-end">
-                                    <Dialog.Close asChild>
-                                        <Button type="submit">Save changes</Button>
-                                    </Dialog.Close>
-                                </div>
+                {visitingOwnProfileAndAuth && (
+                    <div className={'flex flex-row justify-end gap-1'}>
+                        <EditProfile/>
+                        <DropdownMenu.Root>
+                            <DropdownMenu.Trigger asChild  >
+                                <Button variant="ghost" size='icon' className={'hover:bg-transparent'} ><CiCircleMore className={'w-7 h-7'}/></Button>
+                            </DropdownMenu.Trigger>
+                            <DropdownMenu.Content className="bg-white rounded-xl w-auto mt-2 justify-center shadow-md divide-y divide-gray-300">
+                                {/*<DropdownMenu.Item>*/}
+                                {/*    <span className='font-bold text-red-700'>Block</span>*/}
+                                {/*</DropdownMenu.Item>*/}
+                                <DropdownMenu.Item className={'px-2'} >
+                                    <Button size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={'pt-1 justify-center items-center hover:bg-transparent '}>Copy link</Button>
+                                </DropdownMenu.Item>
 
-                            </Dialog.Content>
-                        </Dialog.Portal>
-                    </Dialog.Root>
+                                <DropdownMenu.Item className={'px-2'}  >
+                                    <Button colorScheme={'red'} size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} isLoading={isLoggingOut} onClick={handleLogout} className={' pb-1 justify-center items-center hover:bg-transparent '}>Log out</Button>
+                                </DropdownMenu.Item>
+                            </DropdownMenu.Content>
+                        </DropdownMenu.Root>
+                    </div>
+                )}
+                {visitingAnotherProfileAndAuth && (
+                    <div className={'flex flex-row justify-end gap-1'}>
+                        <Button variant="outline" size={{ base: "xs", md: "sm" }}  className={'rounded-full px-4 py-2 border-black'} onClick={handleFollowUser} isLoading={isUpdating}
+                            >{isFollowing ? 'Unfollow' : 'Follow'}
+                        </Button>
+                        <DropdownMenu.Root>
+                            <DropdownMenu.Trigger asChild  >
+                                <Button variant="ghost" size='icon' className={'hover:bg-transparent'} ><CiCircleMore className={'w-7 h-7'}/></Button>
+                            </DropdownMenu.Trigger>
+                            <DropdownMenu.Content className="bg-white rounded-xl w-auto mt-2 justify-center shadow-md divide-y divide-gray-300">
+                                {/*<DropdownMenu.Item>*/}
+                                {/*    <span className='font-bold text-red-700'>Block</span>*/}
+                                {/*</DropdownMenu.Item>*/}
+                                <DropdownMenu.Item className={'px-2'} >
+                                    <Button size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={'justify-center items-center hover:bg-transparent'}>Copy link</Button>
+                                </DropdownMenu.Item>
 
-                    <DropdownMenu.Root>
-                        <DropdownMenu.Trigger asChild  >
-                            <Button variant="ghost" size='icon' className={'hover:bg-transparent'} ><CiCircleMore className={'w-7 h-7'}/></Button>
-                        </DropdownMenu.Trigger>
-                        <DropdownMenu.Content className="bg-white rounded-lg w-auto mt-2 py-2 space-y-1 justify-center">
-                            {/*<DropdownMenu.Item>*/}
-                            {/*    <span className='font-bold text-red-700'>Block</span>*/}
-                            {/*</DropdownMenu.Item>*/}
-                            <DropdownMenu.Item className={'px-2'} >
-                                <Btn size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={'justify-start hover:bg-transparent '}>Copy link</Btn>
-                            </DropdownMenu.Item>
-                            <DropdownMenu.Separator className="h-[1px] bg-gray-700 "/>
-
-                            <DropdownMenu.Item className={'px-2'}  >
-                                <Btn colorScheme={'red'} size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} isLoading={isLoggingOut} onClick={handleLogout} className={'justify-start hover:bg-transparent '}>Log out</Btn>
-                            </DropdownMenu.Item>
+                                <DropdownMenu.Item className={'px-2'}  >
+                                    <Button colorScheme={'red'} size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={' pb-1 justify-center items-center hover:bg-transparent'}>Block</Button>
+                                </DropdownMenu.Item>
 
 
-                        </DropdownMenu.Content>
-                    </DropdownMenu.Root>
-                </div>
+                            </DropdownMenu.Content>
+                        </DropdownMenu.Root>
+                    </div>
+                )}
             </Flex>
-            <div className={'w-full text-md '}>Lately tan làm em thích đi ngoại giao Friday, Thursday, Wednesday, Tuesday going out</div>
+            <div className={'w-full text-md '}>{userProfile.bio}</div>
             {/*<Flex gap={4} className={'justify-start items-center'}>*/}
 
             {/*</Flex>*/}

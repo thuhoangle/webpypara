@@ -48,7 +48,7 @@ const Login = () => {
                             </Button>
                         </InputRightElement>
                 </InputGroup>
-                <FormHelperText>Must be at least 8 characters</FormHelperText>
+                <FormHelperText>Must be at least 6 characters</FormHelperText>
             </FormControl>
 
             {error && (
@@ -57,7 +57,7 @@ const Login = () => {
                     {error.message}
                 </Alert>
             )}
-            <Button type={'submit'} className='w-full flex flex-row items-center' onClick={() => login(inputs)} >
+            <Button type={'submit'} className='w-full flex flex-row items-center'  onClick={() => login(inputs)} >
                 Log in
             </Button>
 
