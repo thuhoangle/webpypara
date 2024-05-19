@@ -7,7 +7,8 @@ import MusicBox from "@/components/musicBox.jsx";
 import useGetUserProfileByUsername from "@/hook/useGetProfileByUsername.js";
 import {useParams} from "react-router-dom";
 import {Link as RouterLink} from "react-router-dom";
-import CreatePost from "@/components/CreatePost.jsx";
+// import CreatePost from "@/components/CreatePost.jsx";
+import CreateBPost from "@/components/CreateBPost.jsx";
 
 const Profile = () => {
     const { username } = useParams()
@@ -37,8 +38,7 @@ const Profile = () => {
                     <DropdownMenu/>
                 </div>
                 <div className={'fixed bottom-8 right-10' }>
-                    <CreatePost/>
-                    {/*<Button variant="ghost" size='icon' className={'hover:bg-transparent '} onClick ><HiPlus className={'w-10 h-10 rounded-full p-1 bg-white'}/></Button>*/}
+                    <CreateBPost/>
                 </div>
             </GridItem>
         </Grid>

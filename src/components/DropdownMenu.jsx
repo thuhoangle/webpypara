@@ -10,9 +10,11 @@ import {
     Tooltip, Link, Flex } from '@chakra-ui/react'
 import useAuthStore from "@/store/authStore.js";
 import SearchProfile from "@/components/search/SearchProfile.jsx";
+import useLogout from "@/hook/useLogout.js";
+
 const DropdownMenu = () => {
     const authUser = useAuthStore(state => state.user)
-
+    const{handleLogout, isLoggingOut} = useLogout()
 
     return (
         <div className="absolute right-4"  >
@@ -51,9 +53,12 @@ const DropdownMenu = () => {
                         </Tooltip>
 
                         <Tooltip label={"Log out"} placement={'left'} openDelay={300} textColor='gray' bg='gray.50' >
-                            <Link to={'/auth'} as={RouterLink} alignItems={'center'}  className={'rounded-full p-2 hover:bg-slate-50'} >
+                            {/*<Button size={'sm'} variant={'whiteAlpha'} isLoading={isLoggingOut} onClick={handleLogout}  className={'cursor-pointer items-center rounded-full p-2 hover:bg-slate-50'} >*/}
+                            {/*    <MdLogout className='w-7 h-7 text-red-500' />*/}
+                            {/*</Button>*/}
+                            <div onClick={handleLogout}  className={'cursor-pointer items-center rounded-full p-2 hover:bg-slate-50'} >
                                 <MdLogout className='w-7 h-7 text-red-500' />
-                            </Link>
+                            </div>
                         </Tooltip>
 
                     </Flex>

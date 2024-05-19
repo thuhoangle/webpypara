@@ -18,9 +18,9 @@ const Caption = ({ post }) => {
                             {userProfile.username}
                         </Text>
                     </Link>
-                    <Text  fontSize={14}>{post.caption}</Text>
+                    <Text  fontSize={14} className={'cursor-default'}>{post.caption}</Text>
                 </Flex>
-                <Text fontSize={12} color={"gray"}>
+                <Text fontSize={12} color={"gray"} className={'cursor-default'}>
                     {timeAgo(post.createdAt)}
                 </Text>
             </Flex>

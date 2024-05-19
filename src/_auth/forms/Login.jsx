@@ -1,9 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
-    VStack,
-    CardFooter,
+    Button,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -57,7 +55,7 @@ const Login = () => {
                     {error.message}
                 </Alert>
             )}
-            <Button type={'submit'} className='w-full flex flex-row items-center'  onClick={() => login(inputs)} >
+            <Button colorScheme={'dark'} type={'submit'} className='w-full flex flex-row items-center'  onClick={() => login(inputs)} >
                 Log in
             </Button>
 

@@ -13,9 +13,11 @@ function App() {
       <PageLayout>
           <Routes>
               {/*element={ <Home /> }*/}
-              <Route path={'/'} element={ authUser? <Home /> : <Navigate to="/auth" /> }/>
+              {/*<Route path={'/'} element={ authUser? <Home /> : <Navigate to="/auth" /> }/>*/}
+              <Route path={'/'} element={ <Home /> }/>
               <Route path='/auth' element={!authUser ? <AuthPage/> : <Navigate to="/" /> } />
-              <Route path='/:username' element={<Profile/>} />
+              {/*<Route path='/:username' element={<Profile/>} />*/}
+              <Route path='/:username' element={authUser? <Profile/> : <Navigate to="/auth" /> } />
               {/*<Route path='/profile' element={<Profile/>} />*/}
           </Routes>
       </PageLayout>

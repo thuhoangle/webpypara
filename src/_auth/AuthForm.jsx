@@ -1,11 +1,10 @@
 import {Card, CardHeader, CardBody, CardFooter, InputRightElement, InputGroup, VStack} from '@chakra-ui/react'
-import { Input, Heading, Flex, Spacer, Box } from '@chakra-ui/react'
+import { Input, Heading, Flex, Spacer, Box, Button } from '@chakra-ui/react'
 import {
     FormControl,
     FormLabel,
     FormHelperText,
 } from '@chakra-ui/react'
-import {Button} from "@/components/ui/button.jsx";
 import React, {useState} from "react";
 import Login from "@/_auth/forms/Login.jsx";
 import SignUp from "@/_auth/forms/SignUp.jsx";

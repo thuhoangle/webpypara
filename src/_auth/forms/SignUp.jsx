@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {
     Alert, AlertIcon,
-    Box,
+    Button,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -10,7 +10,6 @@ import {
     InputRightElement,
     VStack
 } from "@chakra-ui/react";
-import {Button} from "@/components/ui/button.jsx";
 import useSignUpwEmailPassword from "@/hook/useSignUpwEmailPassword.js";
 
 const SignUp = () => {
@@ -65,7 +64,7 @@ const SignUp = () => {
                             {error.message}
                         </Alert>
                     )}
-                <Button type={'submit'} className='w-full flex flex-row items-center '
+                <Button colorScheme={'dark'} type={'submit'} className='w-full flex flex-row items-center '
                         isLoading={loading}
                         onClick={() => signup(inputs)}>
                     Sign up

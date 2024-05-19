@@ -9,7 +9,7 @@ const Comment = ({ comment }) => {
     if (isLoading) return <CommentSkeleton />;
 
     return (
-        <Flex gap={4} >
+        <Flex gap={2} >
             <Link src={`/${userProfile.username}`}>
                 <Avatar src={userProfile.profilePicURL} size='sm'/>
             </Link>
@@ -21,11 +21,11 @@ const Comment = ({ comment }) => {
                                 </Text>
                             </Link>
 
-                            <Text fontSize={14}>
+                            <Text fontSize={14} className={'cursor-default'}>
                                 {comment.comment}
                             </Text>
                         </Flex>
-                        <Text fontSize={12} color={"gray"}>
+                        <Text fontSize={12} color={"gray"} className={'cursor-default'}>
                             {timeAgo(comment.createdAt)}
                         </Text>
                     </Flex>

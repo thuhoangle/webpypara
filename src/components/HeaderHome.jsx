@@ -1,4 +1,3 @@
-import React from 'react'
 import logo from './../assets/img.png';
 import { RiHomeFill } from "react-icons/ri";
 import { FaRegCircleUser } from "react-icons/fa6";
@@ -6,9 +5,11 @@ import {Avatar, Link, Tooltip} from '@chakra-ui/react'
 import {Link as RouterLink} from "react-router-dom";
 import useAuthStore from "@/store/authStore.js";
 import SearchProfile from "@/components/search/SearchProfile.jsx";
+import {Navigate} from "react-router-dom";
 
 function HeaderHome() {
     const authUser = useAuthStore(state => state.user)
+
 
     // const menuItems = [
     //     {
@@ -49,7 +50,10 @@ function HeaderHome() {
 
                     <Tooltip label={"Search"} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >
                         <div className={'text-gray-400 hover:text-gray-600'}>
+                            {authUser ?
                             <SearchProfile className={'  w-6 h-6 '}/>
+                            :
+                            <Navigate to="/auth" />}
                         </div>
                     </Tooltip>
 

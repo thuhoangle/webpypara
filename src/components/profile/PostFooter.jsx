@@ -5,6 +5,7 @@ import useComment from "@/hook/useComment.js";
 import useAuthStore from "@/store/authStore.js";
 import useSavePost from "@/hook/useSavePost.js";
 import {timeAgo} from "@/utils/timeAgo.js";
+import useProfileStore from "@/store/ProfileStore.js";
 
 const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
     const { handleSavePost, isSaved } = useSavePost(post);
@@ -12,6 +13,8 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
     const [comment, setComment] = useState("");
     const authUser = useAuthStore((state) => state.user);
     const commentRef = useRef(null);
+    const userProfile = useProfileStore((state) => state.userProfile)
+
 
     const handleSubmitComt = async () => {
         await handlePostComment(post.id, comment);
@@ -32,27 +35,33 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
             </Flex>
             {/*<Text fontSize={'sm'} fontWeight={600}>{saves} saves</Text>*/}
 
-            {isProfilePage && (
-                <Text fontSize='11' color={"gray"}>
-                    Posted
-                    {timeAgo(post.createdAt)}
-                </Text>
-            )}
+            {/*{isProfilePage && (*/}
+            {/*    <Text fontSize='11' color={"gray"}>*/}
+            {/*        Posted*/}
+            {/*        {timeAgo(post.createdAt)}*/}
+            {/*    </Text>*/}
+            {/*)}*/}
 
             {!isProfilePage && (
-                <>
-                    <Text fontSize='sm' fontWeight={700}>
-                        {creatorProfile?.username}{" "}
-                        <Text as='span' fontWeight={500}>
-                            {post.caption}
-                        </Text>
+                <div className="flex flex-col ">
+                <div className={'flex gap-2 text-sm items-center cursor-default'}>
+                    <Text fontWeight={700}>
+                        {userProfile.fullName}
+                    </Text>
+                    <Text >
+                        {post.caption}
                     </Text>
                     {/*{post.comments.length > 0 && (*/}
                     {/*    <Text fontSize='sm' color={"gray"} cursor={"pointer"}>*/}
                     {/*        View all {post.comments.length} comments*/}
                     {/*    </Text>*/}
                     {/*)}*/}
-                </>
+                </div>
+                <Text fontSize='11' color={"gray"}>
+                    Posted {' '}
+                    {timeAgo(post.createdAt)}
+                </Text>
+                </div>
                 )}
 
             {authUser && (
