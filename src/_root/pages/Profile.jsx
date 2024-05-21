@@ -2,17 +2,16 @@ import DropdownMenu from "@/components/DropdownMenu.jsx";
 import {Flex, Grid, GridItem, Skeleton, SkeletonCircle, VStack, Link, Text} from "@chakra-ui/react";
 import Info from "@/components/profile/Info.jsx";
 import Tabs from "@/components/profile/Tabs.jsx";
-import Posts from "@/components/profile/Posts.jsx";
 import MusicBox from "@/components/musicBox.jsx";
-import useGetUserProfileByUsername from "@/hook/useGetProfileByUsername.js";
+// import useGetUserProfileByUsername from "@/hook/useGetProfileByUsername.js";
 import {useParams} from "react-router-dom";
 import {Link as RouterLink} from "react-router-dom";
-// import CreatePost from "@/components/CreatePost.jsx";
 import CreateBPost from "@/components/CreateBPost.jsx";
+import useGetUser from "@/hook/useGetUser.js";
 
 const Profile = () => {
-    const { username } = useParams()
-    const {isLoading, userProfile} = useGetUserProfileByUsername(username)
+    const { userId } = useParams()
+    const {isLoading, userProfile} = useGetUser(userId)
 
     const userNotFound = !isLoading && !userProfile
     if (userNotFound) return <UserNotFound/>
@@ -31,7 +30,7 @@ const Profile = () => {
                     {isLoading && <ProfileHeaderSkeleton />}
                 </div>
                 <Tabs/>
-                <Posts/>
+                {/*<Posts/>*/}
             </GridItem>
             <GridItem pr='2' bg='green.300' area={'sidebar2'} display={{base: 'none', md: "block"}} className={''}>
                 <div className={''}>

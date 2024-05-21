@@ -4,6 +4,11 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      'api': 'https://socialmedia-66ibb6pdga-uc.a.run.app/',
+    },
+  },
   plugins: [react()],
   resolve: {
     alias: {

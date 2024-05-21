@@ -1,6 +1,5 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { CiCircleMore } from "react-icons/ci";
-// import { Button } from "@/components/ui/button"
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {Flex, VStack, Text, Button} from "@chakra-ui/react";
 import { Avatar, AvatarGroup } from '@chakra-ui/react'
@@ -8,31 +7,64 @@ import useLogout from "@/hook/useLogout.js";
 import useProfileStore from "@/store/ProfileStore.js";
 import useAuthStore from "@/store/authStore.js";
 import EditProfile from "@/components/profile/EditProfile.jsx";
-import useFollow from "@/hook/useFollow.jsx";
+// import useFollow from "@/hook/useFollow.jsx";
+import DefaultAva from "@/components/ui/defaultAva.jsx";
+import {getUser} from "@/services/theAPI.js";
+import axios from "axios";
 
 function Info() {
     const{handleLogout, isLoggingOut} = useLogout()
-    const {userProfile} = useProfileStore();
+    const {userProfile, setUserProfile} = useProfileStore();
     const authUser = useAuthStore((state) => state.user);
-    const {isFollowing, isUpdating, handleFollowUser} = useFollow(userProfile?.uid);
-    const visitingOwnProfileAndAuth = authUser && authUser.username === userProfile.username;
-    const visitingAnotherProfileAndAuth = authUser && authUser.username !== userProfile.username;
+    // const {isFollowing, isUpdating, handleFollowUser} = useFollow(userProfile?.uid);
+    const visitingOwnProfileAndAuth = authUser && authUser.ID === userProfile.ID;
+    const visitingAnotherProfileAndAuth = authUser && authUser.ID !== userProfile.ID;
+    // const[isLoading, setIsLoading] = useState(true);
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try{
+                    const res = await axios.get(getUser, { headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    })
+                    setUserProfile(res.data)
+                    console.table("info data:", res.data)
+                } catch (error) {
+                    throw new Error('Info failed')
+                }
+                // setIsLoading(false)
+            }
+            fetchData()
+    }, []);
+
+    // const getUser = () => {
+    //     getUser.then((resp) ={
+    //         console.log(resp.data.result)
+    //         setUserProfile(resp.data.result)
+    //     })
+    // }
 
     return (
     <Flex gap={{base:3, sm:8}} p={10} direction={{base:'column', sm:'row'}} borderBottom={'1px solid'}>
+        {userProfile.usericon && userProfile.usericon.iconurl  ? (
         <AvatarGroup size={{base:'xl', md:'2xl'}} className={'justify-center self-start mx-auto'}>
-            <Avatar name="profilePic" src={userProfile.profilePicURL} alt={'Avatar'} />
+            <Avatar name="profilePic" src={userProfile.usericon.iconurl } alt={'Avatar'} />
         </AvatarGroup>
+            ) : (<DefaultAva name={userProfile.first_name } />)
+        }
 
         <VStack className={'items-start gap-1 mx-auto flex-1'}>
             <Flex gap={4} direction={{base: 'column', sm: 'row'}} justifyContent={{base: 'center', sm: 'space-between'}}
                   className={'w-full items-center'}>
                 <div className='pt-2'>
-                    <Text fontSize={{base: 'xl', md: '2xl'}} className=" font-semibold mr-4">{userProfile.fullName}</Text>
-                    <Text fontSize={{base: 'base', md: 'lg'}} className=" font-normal mr-4">@{userProfile.username}</Text>
+                    <Text fontSize={{base: 'xl', md: '2xl'}} className=" font-semibold mr-4">{userProfile.first_name}</Text>
+                    <Text fontSize={{base: 'base', md: 'lg'}} className=" font-normal mr-4">@{userProfile.email}</Text>
                 </div>
                     {/*<Text fontSize={{base: 'md', md: 'lg'}} className="font-medium mr-4">a gate-keeping place</Text>*/}
-                {visitingOwnProfileAndAuth && (
+                {/*{visitingOwnProfileAndAuth && (*/}
                     <div className={'flex flex-row justify-end gap-1'}>
                         <EditProfile/>
                         <DropdownMenu.Root>
@@ -53,38 +85,35 @@ function Info() {
                             </DropdownMenu.Content>
                         </DropdownMenu.Root>
                     </div>
-                )}
-                {visitingAnotherProfileAndAuth && (
-                    <div className={'flex flex-row justify-end gap-1'}>
-                        <Button variant="outline" size={{ base: "xs", md: "sm" }}  className={'rounded-full px-4 py-2 border-black'} onClick={handleFollowUser} isLoading={isUpdating}
-                            >{isFollowing ? 'Unfollow' : 'Follow'}
-                        </Button>
-                        <DropdownMenu.Root>
-                            <DropdownMenu.Trigger asChild  >
-                                <Button variant="ghost" size='icon' className={'hover:bg-transparent'} ><CiCircleMore className={'w-7 h-7'}/></Button>
-                            </DropdownMenu.Trigger>
-                            <DropdownMenu.Content className="bg-white rounded-xl w-auto mt-2 justify-center shadow-md divide-y divide-gray-300">
-                                {/*<DropdownMenu.Item>*/}
-                                {/*    <span className='font-bold text-red-700'>Block</span>*/}
-                                {/*</DropdownMenu.Item>*/}
-                                <DropdownMenu.Item className={'px-2'} >
-                                    <Button size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={'justify-center items-center hover:bg-transparent'}>Copy link</Button>
-                                </DropdownMenu.Item>
+                {/*)}*/}
+                {/*{visitingAnotherProfileAndAuth && (*/}
+                {/*    <div className={'flex flex-row justify-end gap-1'}>*/}
+                {/*        <Button variant="outline" size={{ base: "xs", md: "sm" }}  className={'rounded-full px-4 py-2 border-black'} onClick={handleFollowUser} isLoading={isUpdating}*/}
+                {/*            >{isFollowing ? 'Unfollow' : 'Follow'}*/}
+                {/*        </Button>*/}
+                {/*        <DropdownMenu.Root>*/}
+                {/*            <DropdownMenu.Trigger asChild  >*/}
+                {/*                <Button variant="ghost" size='icon' className={'hover:bg-transparent'} ><CiCircleMore className={'w-7 h-7'}/></Button>*/}
+                {/*            </DropdownMenu.Trigger>*/}
+                {/*            <DropdownMenu.Content className="bg-white rounded-xl w-auto mt-2 justify-center shadow-md divide-y divide-gray-300">*/}
+                {/*                /!*<DropdownMenu.Item>*!/*/}
+                {/*                /!*    <span className='font-bold text-red-700'>Block</span>*!/*/}
+                {/*                /!*</DropdownMenu.Item>*!/*/}
+                {/*                <DropdownMenu.Item className={'px-2'} >*/}
+                {/*                    <Button size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={'justify-center items-center hover:bg-transparent'}>Copy link</Button>*/}
+                {/*                </DropdownMenu.Item>*/}
 
-                                <DropdownMenu.Item className={'px-2'}  >
-                                    <Button colorScheme={'red'} size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={' pb-1 justify-center items-center hover:bg-transparent'}>Block</Button>
-                                </DropdownMenu.Item>
+                {/*                <DropdownMenu.Item className={'px-2'}  >*/}
+                {/*                    <Button colorScheme={'red'} size={'sm'} variant={'ghost'} _hover={{ bg: 'transparent' }} className={' pb-1 justify-center items-center hover:bg-transparent'}>Block</Button>*/}
+                {/*                </DropdownMenu.Item>*/}
 
 
-                            </DropdownMenu.Content>
-                        </DropdownMenu.Root>
-                    </div>
-                )}
+                {/*            </DropdownMenu.Content>*/}
+                {/*        </DropdownMenu.Root>*/}
+                {/*    </div>*/}
+                {/*)}*/}
             </Flex>
-            <div className={'w-full text-md '}>{userProfile.bio}</div>
-            {/*<Flex gap={4} className={'justify-start items-center'}>*/}
-
-            {/*</Flex>*/}
+            {/*<div className={'w-full text-md '}>{userProfile.bio}</div>*/}
         </VStack>
     </Flex>
 

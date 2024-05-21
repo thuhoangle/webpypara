@@ -6,21 +6,29 @@ import {
     FormHelperText,
     FormLabel,
     Input,
-    InputGroup,
-    InputRightElement,
-    VStack
+    // InputGroup,
+    // InputRightElement,
+    // VStack
 } from "@chakra-ui/react";
 import useSignUpwEmailPassword from "@/hook/useSignUpwEmailPassword.js";
 
-const SignUp = () => {
-    const[inputs, setInputs] = useState({
-        email:'',
-        username:'',
-        password:'',
-        confirmPassword:'',
-    });
 
-    const {loading, error, signup} = useSignUpwEmailPassword();
+const SignUp = () => {
+    const[confirm, setconfirm] = useState('');
+    const {inputs, setInputs, signup, loading} = useSignUpwEmailPassword();
+    const [error, setError] = useState(null);
+    // const [loading, setLoading] = useState(false);
+
+    const handleSignUp = async (e) => {
+            e.preventDefault();
+            if(inputs.password !== confirm){
+                setError({message: 'Passwords do not match'});
+                return;
+            }
+            signup(e);
+            // IniUser()
+    };
+
     return (
         <>
 
@@ -53,8 +61,8 @@ const SignUp = () => {
                             pr='4.5rem'
                             type={'password'}
                             placeholder='Enter password'
-                            value={inputs.confirmPassword}
-                            onChange={(e) => setInputs({...inputs, confirmPassword:e.target.value})}
+                            value={confirm}
+                            onChange={(e) => setconfirm(e.target.value)}
                         />
                 </FormControl>
 
@@ -66,7 +74,7 @@ const SignUp = () => {
                     )}
                 <Button colorScheme={'dark'} type={'submit'} className='w-full flex flex-row items-center '
                         isLoading={loading}
-                        onClick={() => signup(inputs)}>
+                        onClick={handleSignUp}>
                     Sign up
                 </Button>
 

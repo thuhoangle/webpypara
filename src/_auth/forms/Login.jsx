@@ -1,4 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react'
+// import React, {useEffect, useRef, useState} from 'react'
+import { useState} from 'react'
 import { Input } from "@/components/ui/input"
 import {
     Button,
@@ -7,25 +8,34 @@ import {
     FormLabel,
     InputGroup,
     InputRightElement,
-    Alert, AlertIcon
+    // Alert, AlertIcon
 } from "@chakra-ui/react";
 import useLogin from "@/hook/useLogin.js";
+// import {useNavigate} from "react-router-dom";
+// import useShowToast from "@/hook/useShowToast.js";
+// import useAuthStore from "@/store/authStore.js";
+// import axios from "axios";
 
 const Login = () => {
-    const[inputs, setInputs] = useState({
-        email:'',
-        password:'',
-    });
-    const [show, setShow] = useState(false)
+    const { inputs, setInputs, login, loading } = useLogin();
+    const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show)
-    const{loading, error, login} = useLogin();
+    // const navigate = useNavigate();
+    // const showToast = useShowToast();
+    // const setUser = useAuthStore(state => state.setUser );
+    // const[inputs, setInputs] = useState({
+    //     email:'',
+    //     password:'',
+    // });
 
-    return (
+                return (
         <>
+            <form onSubmit={login}>
             <FormControl name="email" >
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" placeholder="Enter your email"
                        value={inputs.email} onChange={(e) => setInputs({...inputs, email:e.target.value})}
+                       // value={inputs.email} onChange={handleInputChange}
                 />
                 {/*{isEmpty ? <FormErrorMessage>Email is required.</FormErrorMessage> : null }*/}
 
@@ -37,8 +47,10 @@ const Login = () => {
                             pr='4.5rem'
                             type={show ? 'text' : 'password'}
                             placeholder='Enter password'
+                            // value={inputs.password}
                             value={inputs.password}
                             onChange={(e) => setInputs({...inputs, password:e.target.value})}
+                            // onChange={handleInputChange}
                         />
                         <InputRightElement width='4rem'>
                             <Button variant={'ghost'} onClick={handleClick}>
@@ -49,15 +61,18 @@ const Login = () => {
                 <FormHelperText>Must be at least 6 characters</FormHelperText>
             </FormControl>
 
-            {error && (
-                <Alert status={'error'} className={'text-sm p-2 rounded-e'}>
-                    <AlertIcon/>
-                    {error.message}
-                </Alert>
-            )}
-            <Button colorScheme={'dark'} type={'submit'} className='w-full flex flex-row items-center'  onClick={() => login(inputs)} >
+            {/*{error && (*/}
+            {/*    <Alert status={'error'} className={'text-sm p-2 rounded-e'}>*/}
+            {/*        <AlertIcon/>*/}
+            {/*        {error.message}*/}
+            {/*    </Alert>*/}
+            {/*)}*/}
+            <Button colorScheme={'dark'} type={'submit'} className='w-full flex flex-row items-center' isLoading={loading}
+                    // onClick={() => login(inputs)}
+            >
                 Log in
             </Button>
+            </form>
 
 
             {/*<div className={'flex justify-center items-center mb-1'}>*/}

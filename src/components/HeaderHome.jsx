@@ -57,8 +57,10 @@ function HeaderHome() {
                         </div>
                     </Tooltip>
 
-                    <Tooltip label={"Profile"} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >
-                        <Link to={`/${authUser?.username}`} as={RouterLink} alignItems={'center'} >
+                    {/*<Tooltip label={"Profile"} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >*/}
+                    <Tooltip label={`/${authUser?.user_id}`} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >
+                        <Link to="/profile" as={RouterLink} alignItems={'center'} >
+                        {/*<Link to={`/${authUser?.user_id}`} as={RouterLink} alignItems={'center'} >*/}
                             <FaRegCircleUser className={'text-gray-400 w-6 h-6 hover:text-gray-500'}/>
                         </Link>
                     </Tooltip>

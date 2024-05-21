@@ -7,7 +7,7 @@ import {auth} from "@/firebase/firebase.js";
 import {useAuthState} from "react-firebase-hooks/auth";
 
 function App() {
-    const [authUser] = useAuthState(auth)
+    // const [authUser] = useAuthState(auth)
 
   return (
       <PageLayout>
@@ -15,10 +15,11 @@ function App() {
               {/*element={ <Home /> }*/}
               {/*<Route path={'/'} element={ authUser? <Home /> : <Navigate to="/auth" /> }/>*/}
               <Route path={'/'} element={ <Home /> }/>
-              <Route path='/auth' element={!authUser ? <AuthPage/> : <Navigate to="/" /> } />
+              <Route path='/auth' element={ <AuthPage/>} />
+              {/*<Route path='/auth' element={!authUser ? <AuthPage/> : <Navigate to="/" /> } />*/}
               {/*<Route path='/:username' element={<Profile/>} />*/}
-              <Route path='/:username' element={authUser? <Profile/> : <Navigate to="/auth" /> } />
-              {/*<Route path='/profile' element={<Profile/>} />*/}
+              {/*<Route path='/:username' element={authUser? <Profile/> : <Navigate to="/auth" /> } />*/}
+              <Route path='/profile' element={ <Profile/>} />
           </Routes>
       </PageLayout>
 
