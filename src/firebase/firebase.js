@@ -6,13 +6,13 @@ import {getStorage} from "firebase/storage";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCwvmPU7NTrC23SYGUs8HQqGlMJyxpbFh4",
-    authDomain: "webpybara.firebaseapp.com",
-    projectId: "webpybara",
-    storageBucket: "webpybara.appspot.com",
-    messagingSenderId: "134247825972",
-    appId: "1:134247825972:web:0ca52408cc836ad4734061",
-    measurementId: "G-1QGKDGGM7E"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
