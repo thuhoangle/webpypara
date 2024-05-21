@@ -1,31 +1,25 @@
-import{ Routes, Route } from 'react-router-dom'
-import './App.css'
+import { Routes, Route, Navigate} from 'react-router-dom'
 import Home from "@/_root/pages/Home.jsx";
-import SignInForm from "@/_auth/forms/SignInForm.jsx";
-import SignUpForm from "@/_auth/forms/SignUpForm.jsx";
-import AuthLayout from "@/_auth/AuthLayout.jsx";
-import RootLayout from "@/_root/RootLayout.jsx";
-
+import AuthPage from "@/_auth/AuthPage.jsx";
+import PageLayout from "@/Layout/PageLayout.jsx";
+import Profile from "@/_root/pages/Profile.jsx";
+import {auth} from "@/firebase/firebase.js";
+import {useAuthState} from "react-firebase-hooks/auth";
 
 function App() {
+    const [authUser] = useAuthState(auth)
 
   return (
-    <main className={'flex h-screen'}>
-      <Routes>
-        {/*public routes*/}
-          <Route element={<AuthLayout/>}>
-              <Route path="/sign-in" element={<SignInForm />}></Route>
-              <Route path="/sign-up" element={<SignUpForm />}></Route>
-          </Route>
+      <PageLayout>
+          <Routes>
+              {/*element={ <Home /> }*/}
+              <Route path={'/'} element={ authUser? <Home /> : <Navigate to="/auth" /> }/>
+              <Route path='/auth' element={!authUser ? <AuthPage/> : <Navigate to="/" /> } />
+              <Route path='/:username' element={<Profile/>} />
+              {/*<Route path='/profile' element={<Profile/>} />*/}
+          </Routes>
+      </PageLayout>
 
-
-        {/*private routes*/}
-          <Route element={<RootLayout/>}>
-              <Route index element={<Home/>}></Route>
-          </Route>
-
-      </Routes>
-    </main>
   )
 }
 
