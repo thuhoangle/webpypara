@@ -109,7 +109,8 @@ const SinglePost = ({ post }) => {
 
                                                 {post.images.map((file => (
                                                     <div key={file.id} className="embla__slide min-w-0 shrink-0 grow-0 basis-full pl-4">
-                                                        <img className="embla__slide__img object-fill  min-w-[35rem] max-w-[43rem] aspect-square " src={file}/>
+                                                        {/*<img className="embla__slide__img object-fill  min-w-[35rem] max-w-[43rem] aspect-square " src={file}/>*/}
+                                                        <img className="embla__slide__img object-fill  w-[43rem] aspect-square " src={file}/>
                                                     </div>
                                                 )))}
 
