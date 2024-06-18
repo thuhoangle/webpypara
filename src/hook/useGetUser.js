@@ -1,34 +1,34 @@
-import axios from "axios";
-import {useEffect, useState} from "react";
-import useShowToast from "@/hook/useShowToast.js";
-import useUserProfileStore from "@/store/ProfileStore.js";
-import {getUser} from "@/services/theAPI.js";
+import { useEffect, useState } from 'react';
+import useShowToast from '@/hook/useShowToast.js';
+import useProfileStore from '@/store/ProfileStore.js';
+import { getUser } from '../services/theAPI';
+
 const useGetUser = (userId) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const showToast = useShowToast();
-    const { userProfile, setUserProfile } = useUserProfileStore();
+  const [isLoading, setIsLoading] = useState(true);
+  const showToast = useShowToast();
+  const { userProfile, setUserProfile } = useProfileStore();
 
-    useEffect(() => {
+  useEffect(() => {
     const getUserProfile = async () => {
-            setIsLoading(true);
-            try {
-                const response = await axios.get(getUser, {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    }
-                )
-                setUserProfile({userProfile: response.data.userProfile});
-                console.log("fetch user data", response.data.userProfile);
-            } catch (error) {
-                showToast("fetch failed", error.message, "error");
-            } finally {
-                setIsLoading(false);
-            }
-        }
-            getUserProfile();
-        }, [setUserProfile, userId, showToast]);
+      setIsLoading(true);
+      try {
+        const response = await getUser(userId);
+        // console.log('fetch user data response.data', response.data); // Log the data before setting it
+        setUserProfile(response.data); // Directly setting the response data
+      } catch (error) {
+        showToast('fetch failed', error.message, 'error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getUserProfile();
+  }, [setUserProfile, userId, showToast]);
 
-        return { isLoading, userProfile };
-    }
+  // useEffect(() => {
+  //   console.log('Updated userProfile', userProfile); // Log userProfile after it has been updated
+  // }, [userProfile]);
+
+  return { isLoading, userProfile };
+};
+
 export default useGetUser;

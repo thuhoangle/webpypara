@@ -1,37 +1,55 @@
-import { useState } from "react";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import useAuthStore from "@/store/authStore.js";
-import useShowToast from "@/hook/useShowToast.js";
-import {firestore} from "@/firebase/firebase.js";
+import { useState } from 'react';
+import useAuthStore from '@/store/authStore.js';
+import useShowToast from '@/hook/useShowToast.js';
+import axios from 'axios';
 
 const useSavePost = (post) => {
-    const [isUpdating, setIsUpdating] = useState(false);
-    const authUser = useAuthStore((state) => state.user);
-    // const [saves, setSaves] = useState(post.saves.length);
-    const [isSaved, setIsSaved] = useState(false);
-    const showToast = useShowToast();
+  const [isUpdating, setIsUpdating] = useState(false);
+  const authUser = useAuthStore((state) => state.user);
+  const [saves, setSaves] = useState(post.likes.length);
+  const [isSaved, setIsSaved] = useState(false);
+  const showToast = useShowToast();
+  // const userId = localStorage.getItem('InsertedID');
 
-    const handleSavePost = async () => {
-        if (isUpdating) return;
-        if (!authUser) return showToast("Error", "You must be logged in to save a post", "error");
-        setIsUpdating(true);
+  const handleSavePost = async (userId, postID) => {
+    if (isUpdating) return;
+    if (!authUser)
+      return showToast(
+        'Error',
+        'You must be logged in to save a post',
+        'error'
+      );
+    setIsUpdating(true);
 
-        try {
-            const postRef = doc(firestore, "posts", post.id);
-            await updateDoc(postRef, {
-                saves: isSaved ? arrayRemove(authUser.uid) : arrayUnion(authUser.uid),
-            });
+    let data = JSON.stringify({
+      UserId: userId,
+      PostID: postID,
+    });
 
-            setIsSaved(!isSaved);
-            // isSaved ? setSaves(saves - 1) : setSaves(saves + 1);
-        } catch (error) {
-            showToast("Error", error.message, "error");
-        } finally {
-            setIsUpdating(false);
-        }
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: `https://socialmedia-66ibb6pdga-uc.a.run.app/likePost/${authUser}`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
     };
 
-    return { isSaved, handleSavePost, isUpdating };
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setIsSaved(!isSaved);
+        setIsUpdating(false);
+        setSaves(saves + 1);
+      })
+      .catch((error) => {
+        showToast('Error', error.message, 'error');
+      });
+  };
+
+  return { isSaved, handleSavePost, isUpdating, saves, setSaves };
 };
 
 export default useSavePost;
