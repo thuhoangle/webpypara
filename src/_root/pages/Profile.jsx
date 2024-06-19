@@ -44,19 +44,21 @@ const Profile = ({ id }) => {
   const passedId = location.state?.id || id;
 
   const authUser = useAuthStore((state) => state.user);
-  console.log('🚀 ~ Profile ~ authUser:', authUser);
-  console.log('🚀 ~ Profile#### ~ id:', passedId);
+  console.log('🚀 ~ Profile ~ authUser:', authUser.ID);
+  console.log('🚀 ~ Profile#### ~ id:', passedId.ID);
 
   const { isLoading, userProfile } = useGetUser(passedId);
-  // console.log('🚀 ~ Profile^^^^^ ~ userProfile:', userProfile[0]._id);
 
-  const isVisitingOwnProfile = authUser === passedId;
+  const isVisitingOwnProfile =
+    // (authUser && authUser.ID) === (passedId && passedId.ID);
+    (typeof authUser === 'string' ? authUser : authUser.ID) ===
+    (typeof passedId === 'string' ? passedId.ID : passedId);
+
   console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
   const userNotFound = !isLoading && !userProfile;
 
   if (userNotFound) return <UserNotFound />;
 
-  // templateColumns='200px auto 200px'
   return (
     <Grid
       templateAreas={`"sidebar1 main sidebar2"`}
@@ -70,7 +72,6 @@ const Profile = ({ id }) => {
         display={{ base: 'none', md: 'block' }}
         className={'overflow-x-hidden'}
       ></GridItem>
-      {/*<GridItem area={'main'} className={'py-2 w-full grow'}>*/}
       <GridItem
         area={'main'}
         className={
@@ -79,23 +80,33 @@ const Profile = ({ id }) => {
       >
         <div className={''}>
           {isLoading && <ProfileHeaderSkeleton />}
-          {/*user exists*/}
-          {/* {!isLoading && visitingOwnProfileAndAuth && (
-            <Info userProfile={userProfile[0]} />
-          )} */}
-
           {!isLoading && (
-            // <Info user={isVisitingOwnProfile ? authUser : userProfile[0]._id} />
-            <Info user={isVisitingOwnProfile ? authUser : passedId} />
+            <Info
+              user={
+                isVisitingOwnProfile
+                  ? typeof authUser === 'string'
+                    ? authUser
+                    : authUser.ID
+                  : typeof passedId === 'string'
+                  ? passedId
+                  : passedId.ID
+              }
+            />
           )}
-          {/* {!isLoading && userProfile && <Info />} */}
         </div>
         <Tabs />
-        {/* <Posts id={isVisitingOwnProfile ? authUser : userProfile[0]._id} /> */}
 
-        <Posts id={isVisitingOwnProfile ? authUser : passedId} />
-
-        {/* <Posts posts={userProfile[0].post} /> */}
+        <Posts
+          id={
+            isVisitingOwnProfile
+              ? typeof authUser === 'string'
+                ? authUser
+                : authUser.ID
+              : typeof passedId === 'string'
+              ? passedId
+              : passedId.ID
+          }
+        />
       </GridItem>
       <GridItem
         pr="2"
