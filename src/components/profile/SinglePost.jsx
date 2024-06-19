@@ -30,7 +30,8 @@ import {
   usePrevNextButtons,
 } from '@/components/carousel/carouselArrow.jsx';
 import { DotButton, useDotButton } from '@/components/carousel/carouselDot.jsx';
-import axios from 'axios'; // Import axios if it's not already imported
+import axios from 'axios';
+import Comments from '@/components/Comment.jsx';
 
 const SinglePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -229,7 +230,7 @@ const SinglePost = ({ post }) => {
                 >
                   {post.description && <Caption post={post} />}
                   {post?.comments?.map((comment, index) => (
-                    <Comment key={index} comment={comment} />
+                    <Comments key={index} comment={comment} />
                   ))}
                 </VStack>
                 <PostFooter isProfilePic={true} post={post} />

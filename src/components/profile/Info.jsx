@@ -12,17 +12,14 @@ import DefaultAva from '@/components/ui/defaultAva.jsx';
 function Info() {
   const { handleLogout, isLoggingOut } = useLogout();
   const authUser = useAuthStore((state) => state.user);
-  console.log('🚀 ~ authUser:!!!!!', authUser.first_name);
-
   const { userProfile } = useProfileStore();
-  console.log('🚀 ~ INFO ~ userProfile:', userProfile[0].user);
+  // console.log('🚀 ~ INFO ~ userProfile:', userProfile[0].user);
   // const { isFollowing, isUpdating, handleFollowUser } = useFollow(
   //   userProfile[0]._id
   // );
-  const visitingOwnProfileAndAuth =
-    authUser && authUser.email === userProfile[0].user;
+  const visitingOwnProfileAndAuth = authUser && authUser === userProfile[0]._id;
   const visitingAnotherProfileAndAuth =
-    authUser && authUser.email !== userProfile[0].user;
+    authUser && authUser !== userProfile[0]._id;
 
   return (
     <Flex

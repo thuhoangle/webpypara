@@ -1,12 +1,14 @@
-import React from 'react';
 import { Avatar, Flex, Skeleton, SkeletonCircle, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import useGetUserProfileById from '@/hook/useGetUserProfileById.js';
+// import useGetUserProfileById from '@/hook/useGetUserProfileById.js';
 import useGetUser from '@/hook/useGetUser.js';
 import { timeAgo } from '@/utils/timeAgo.js';
+import useProfileStore from '@/store/ProfileStore.js';
 
-const Comment = ({ comment }) => {
-  const { userProfile, isLoading } = useGetUser(comment.userid);
+const Comments = ({ comment }) => {
+  const { userProfile, isLoading } = useGetUser(comment._id);
+  //   console.log('🚀 ~ Comment ~ userProfile:', userProfile);
+
   if (isLoading) return <CommentSkeleton />;
 
   return (
@@ -26,14 +28,14 @@ const Comment = ({ comment }) => {
             {comment.text}
           </Text>
         </Flex>
-        <Text fontSize={12} color={'gray'} className={'cursor-default'}>
+        {/* <Text fontSize={12} color={'gray'} className={'cursor-default'}>
           {timeAgo(comment.commentdate)}
-        </Text>
+        </Text> */}
       </Flex>
     </Flex>
   );
 };
-export default Comment;
+export default Comments;
 const CommentSkeleton = () => {
   return (
     <Flex gap={4} w={'full'} alignItems={'center'}>

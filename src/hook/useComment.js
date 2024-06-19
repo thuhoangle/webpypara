@@ -22,36 +22,32 @@ const useComment = () => {
     if (!authUser)
       return showToast('Error', 'You must be logged in to comment', 'error');
     setIsCommenting(true);
-    const data = {
-      PostID: PostID,
-      OwnerPost: userProfile[0]._id,
-      UserName: username,
-      Text: comment,
-    };
-    console.log('🚀 ~ handlePostComment ~ data:', data);
+
+    // const data = {
+    //   PostID: PostID,
+    //   OwnerPost: userProfile[0]._id,
+    //   UserName: username,
+    //   Text: comment,
+    // };
+
     try {
       await axios.post(
         `https://socialmedia-66ibb6pdga-uc.a.run.app/commentPost/${id}`,
-        // {
-        //   Text: comment,
-        //   UserName: username,
-        //   OwnerPost: authUser.ID,
-        //   PostID: PostID,
-        // },
+        {
+          PostID: PostID,
+          OwnerPost: userProfile[0]._id,
+          UserName: username,
+          Text: comment,
+        },
         {
           headers: {
             'Content-Type': 'application/json',
           },
-          data: data,
+          // data: data,
         }
       );
 
-      console.table('🚀 ~ handlePostComment ~ data:', data);
       showToast('Success', 'Comment posted successfully', 'success');
-      //   await response(doc(firestore, 'posts', postId), {
-      //     comments: arrayUnion(newComment),
-      //   });
-      //   addComment(postId, newComment);
     } catch (error) {
       showToast('Error', error.message, 'error');
     } finally {

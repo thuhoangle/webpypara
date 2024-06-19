@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import useShowToast from '@/hook/useShowToast.js';
-import { getUser } from '@/services/theAPI.js';
+import { searchUser } from '@/services/theAPI.js';
 
 const useSearch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const showToast = useShowToast();
 
-  const getUserProfile = async (userId) => {
+  const getUserProfile = async (username) => {
     setIsLoading(true);
     try {
-      // Replace with your actual API endpoint
-      const response = await getUser(userId);
+      const response = await searchUser(username);
+      console.log('🚀🚀🚀🚀 ~ getUserProfile ~ response:', response.data[0]);
       if (response.data && response.data.length > 0) {
         setUser(response.data[0]);
       } else {

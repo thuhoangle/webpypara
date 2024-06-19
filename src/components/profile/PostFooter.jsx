@@ -35,7 +35,12 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
   return (
     <>
       <Box className={'mb-5 mt-auto'}>
-        <Divider my={4} bg={'gray.800'} />
+        {post.comments.length > 3 && (
+          <Text fontSize="sm" color={'gray'} cursor={'pointer'}>
+            View all {post.comments.length} comments
+          </Text>
+        )}
+        <Divider mt={0} mb={3} bg={'gray.800'} />
         <Flex className={'items-center gap-4 w-full pt-0 mb-2 mt=4'}>
           <Box onClick={handleSave} className={'cursor-pointer'} fontSize={18}>
             {!isSaved ? <FaRegBookmark /> : <FaBookmark />}
@@ -60,11 +65,6 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
             <div className={'flex gap-2 text-sm items-center cursor-default'}>
               <Text fontWeight={700}>{userProfile?.[0]?.username}</Text>
               <Text>{post.description}</Text>
-              {post.comments.length > 0 && (
-                <Text fontSize="sm" color={'gray'} cursor={'pointer'}>
-                  View all {post.comments.length} comments
-                </Text>
-              )}
             </div>
 
             <Text fontSize="11" color={'gray'}>

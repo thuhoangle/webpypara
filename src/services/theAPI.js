@@ -21,3 +21,6 @@ export function postCmt(id) {
 export function deletePost(id) {
   return axiosCreate.put(`/deletePost/${id}`);
 }
+export function searchUser(username) {
+  return axiosCreate.get(`/find/${username}`);
+}

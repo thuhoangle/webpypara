@@ -6,7 +6,6 @@ import useGetPost from '@/hook/useGetPost.jsx';
 import { useEffect } from 'react';
 
 const Posts = () => {
-  // const [fetchedPosts, setFetchedPosts] = useState([]);
   const { isLoading, posts } = useGetPost();
 
   // useEffect(() => {
@@ -17,16 +16,8 @@ const Posts = () => {
 
   useEffect(() => {
     // You can add additional logic here if needed when posts change
-    console.log('Posts changed:', posts);
+    // console.log('Posts changed:', posts);
   }, [posts]);
-
-  // const handleNewPostCreated = (newPost) => {
-  //   // Update local state when a new post is created
-  //   setFetchedPosts([newPost, ...fetchedPosts]);
-  // };
-  // const noPostsFound =
-  //   !isLoading && (fetchedPosts.length === 0 || !fetchedPosts);
-  // if (noPostsFound) return <NoPostsFound />;
 
   const noPostsFound = !isLoading && (posts.length === 0 || !posts);
   if (noPostsFound) return <NoPostsFound />;

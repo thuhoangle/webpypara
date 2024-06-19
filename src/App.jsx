@@ -3,9 +3,11 @@ import Home from '@/_root/pages/Home.jsx';
 import AuthPage from '@/_auth/AuthPage.jsx';
 import PageLayout from '@/Layout/PageLayout.jsx';
 import Profile from '@/_root/pages/Profile.jsx';
-// import { useAuthStore } from '@/store/authStore.js';
+import { useAuthStore } from '@/store/authStore.js';
 
 function App() {
+  const authUser = useAuthStore((state) => state.user);
+  console.log('🚀 ~ App ~ authUser:', authUser);
   return (
     <PageLayout>
       <Routes>
@@ -14,11 +16,20 @@ function App() {
         <Route path={'/'} element={<Home />} />
 
         <Route path="/auth" element={<AuthPage />} />
+        <Route
+          path="/auth"
+          element={!authUser ? <AuthPage /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/:username"
+          element={authUser ? <Profile /> : <Navigate to="/auth" />}
+        />
 
         {/*<Route path='/auth' element={!authUser ? <AuthPage/> : <Navigate to="/" /> } />*/}
-        <Route path="/:username" element={<Profile />} />
-        {/* <Route path="/authUser.first_name}" element={<Profile />} /> */}
-        <Route path="/profile" element={<Profile />} />
+
+        {/* <Route path="/:username" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </PageLayout>
   );

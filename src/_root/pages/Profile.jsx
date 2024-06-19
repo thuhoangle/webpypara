@@ -12,22 +12,23 @@ import {
 import Info from '@/components/profile/Info.jsx';
 import Tabs from '@/components/profile/Tabs.jsx';
 // import useGetUserProfileByUsername from "@/hook/useGetProfileByUsername.js";
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import CreatePost from '@/components/CreatePost.jsx';
 import Posts from '@/components/profile/Posts.jsx';
 import useGetUser from '@/hook/useGetUser.js';
-import useAuthStore from '@/store/authStore.js';
+// import useAuthStore from '@/store/authStore.js';
+// import useProfileStore from '@/store/ProfileStore.js';
 
 const Profile = () => {
-  const authUser = useAuthStore((state) => state.user);
-  // const id = authUser?.ID;
+  // const authUser = useAuthStore((state) => state.user);
   const id = localStorage.getItem('ID');
-  console.log('🚀 ~ Profile ~ iddd:', id);
+  // console.log('🚀 ~ Profile ~ iddd:', id);
 
   // const { userId: userIdFromParams } = useParams();
   // const userId = localStorage.getItem('InsertedID') || userIdFromParams;
   const { isLoading, userProfile } = useGetUser(id);
+  console.log('🚀!!!! ~ Profile ~ userProfile:', userProfile);
 
   const userNotFound = !isLoading && !userProfile;
   if (userNotFound) return <UserNotFound />;
