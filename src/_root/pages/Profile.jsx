@@ -47,12 +47,15 @@ const Profile = ({ id }) => {
   console.log('🚀 ~ Profile ~ authUser:', authUser.ID);
   console.log('🚀 ~ Profile#### ~ id:', passedId.ID);
 
-  const { isLoading, userProfile } = useGetUser(passedId);
+  const { isLoading, userProfile } = useGetUser(
+    typeof passedId === 'string' ? passedId : passedId.ID
+  );
+  console.log('🚀 ~ Profile ~ userProfile:', userProfile);
 
   const isVisitingOwnProfile =
     // (authUser && authUser.ID) === (passedId && passedId.ID);
     (typeof authUser === 'string' ? authUser : authUser.ID) ===
-    (typeof passedId === 'string' ? passedId.ID : passedId);
+    (typeof passedId === 'string' ? passedId : passedId.ID);
 
   console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
   const userNotFound = !isLoading && !userProfile;
