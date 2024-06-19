@@ -1,12 +1,11 @@
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, VStack, Box } from '@chakra-ui/react';
 import { Skeleton } from '@chakra-ui/react';
 import SinglePost from '@/components/profile/SinglePost.jsx';
 import useGetPost from '@/hook/useGetPost.jsx';
-import { useEffect } from 'react';
 
-const Posts = () => {
-  const { isLoading, posts } = useGetPost();
+const Posts = ({ id }) => {
+  const { isLoading, posts } = useGetPost(id);
 
   // useEffect(() => {
   //   if (!isLoading && posts) {
@@ -14,10 +13,27 @@ const Posts = () => {
   //   }
   // }, [isLoading, posts]);
 
-  useEffect(() => {
-    // You can add additional logic here if needed when posts change
-    // console.log('Posts changed:', posts);
-  }, [posts]);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [posts, setPosts] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const { isLoading, posts } = await useGetPost(id);
+  //       setPosts(posts);
+  //       setIsLoading(isLoading);
+  //     } catch (error) {
+  //       console.error('Error fetching posts:', error);
+  //       setPosts([]);
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [id]);
+
+  useEffect(() => {}, [posts]);
 
   const noPostsFound = !isLoading && (posts.length === 0 || !posts);
   if (noPostsFound) return <NoPostsFound />;

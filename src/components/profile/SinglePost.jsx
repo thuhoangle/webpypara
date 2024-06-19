@@ -107,9 +107,9 @@ const SinglePost = ({ post }) => {
             'opacity-0 hover:opacity-100 absolute top-0 left-0 right-0 bottom-0 items-center justify-center'
           }
         ></Flex>
-        {post?.pictures && post.pictures[0] && (
+        {post?.pictures && post?.pictures[0] && (
           <Image
-            src={post.pictures[0].url}
+            src={post?.pictures[0].url}
             alt={'post'}
             className={'w-full h-full object-cover'}
           />
@@ -187,15 +187,18 @@ const SinglePost = ({ post }) => {
               >
                 <Flex className={'items-center justify-between gap-2'}>
                   <Link
-                    to={`${userProfile[0].username}`}
+                    to={`${userProfile[0]?.username}`}
                     className={'items-center flex justify-start gap-2'}
                   >
-                    <Avatar src={userProfile[0].usericon.iconurl} size={'sm'} />
+                    <Avatar
+                      src={userProfile[0]?.usericon.iconurl}
+                      size={'sm'}
+                    />
                     <p className={'font-bold text-sm'}>
-                      {userProfile[0].username}
+                      {userProfile[0]?.username}
                     </p>
                   </Link>
-                  {authUser == userProfile[0]._id && (
+                  {authUser == userProfile[0]?._id && (
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <Button
@@ -228,7 +231,7 @@ const SinglePost = ({ post }) => {
                   alignItems={'flex-start'}
                   className={'w-full max-h-full overflow-y-auto flex '}
                 >
-                  {post.description && <Caption post={post} />}
+                  {post?.description && <Caption post={post} />}
                   {post?.comments?.map((comment, index) => (
                     <Comments key={index} comment={comment} />
                   ))}

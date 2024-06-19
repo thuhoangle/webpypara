@@ -17,20 +17,43 @@ import { Link as RouterLink } from 'react-router-dom';
 import CreatePost from '@/components/CreatePost.jsx';
 import Posts from '@/components/profile/Posts.jsx';
 import useGetUser from '@/hook/useGetUser.js';
-// import useAuthStore from '@/store/authStore.js';
+import useAuthStore from '@/store/authStore.js';
+// import useProfileStore from '@/store/ProfileStore';
 // import useProfileStore from '@/store/ProfileStore.js';
+import { useLocation } from 'react-router-dom';
 
-const Profile = () => {
+const Profile = ({ id }) => {
   // const authUser = useAuthStore((state) => state.user);
-  const id = localStorage.getItem('ID');
-  // console.log('🚀 ~ Profile ~ iddd:', id);
+  // const id = localStorage.getItem('IDSearch');
+  // console.log('🚀 ~ Profile ~ id:', id);
+  // // const { userProfile } = useProfileStore;
 
-  // const { userId: userIdFromParams } = useParams();
-  // const userId = localStorage.getItem('InsertedID') || userIdFromParams;
-  const { isLoading, userProfile } = useGetUser(id);
-  console.log('🚀!!!! ~ Profile ~ userProfile:', userProfile);
+  // const { isLoading, userProfile } = useGetUser(id);
+  // console.log('🚀 ~ Profile ~ userProfile:', userProfile);
 
+  // // const visitingOwnProfileAndAuth = authUser && authUser === userProfile[0]._id;
+  // // const visitingAnotherProfileAndAuth =
+  // //   authUser && authUser !== userProfile[0]._id;
+  // const visitingOwnProfileAndAuth = authUser && authUser === id;
+  // const visitingAnotherProfileAndAuth = authUser && authUser !== id;
+
+  // const userNotFound = !isLoading && !userProfile;
+  // if (userNotFound) return <UserNotFound />;
+
+  const location = useLocation();
+  const passedId = location.state?.id || id;
+
+  const authUser = useAuthStore((state) => state.user);
+  console.log('🚀 ~ Profile ~ authUser:', authUser);
+  console.log('🚀 ~ Profile#### ~ id:', passedId);
+
+  const { isLoading, userProfile } = useGetUser(passedId);
+  // console.log('🚀 ~ Profile^^^^^ ~ userProfile:', userProfile[0]._id);
+
+  const isVisitingOwnProfile = authUser === passedId;
+  console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
   const userNotFound = !isLoading && !userProfile;
+
   if (userNotFound) return <UserNotFound />;
 
   // templateColumns='200px auto 200px'
@@ -55,12 +78,24 @@ const Profile = () => {
         }
       >
         <div className={''}>
-          {/*user exists*/}
-          {!isLoading && userProfile && <Info />}
           {isLoading && <ProfileHeaderSkeleton />}
+          {/*user exists*/}
+          {/* {!isLoading && visitingOwnProfileAndAuth && (
+            <Info userProfile={userProfile[0]} />
+          )} */}
+
+          {!isLoading && (
+            // <Info user={isVisitingOwnProfile ? authUser : userProfile[0]._id} />
+            <Info user={isVisitingOwnProfile ? authUser : passedId} />
+          )}
+          {/* {!isLoading && userProfile && <Info />} */}
         </div>
         <Tabs />
-        <Posts />
+        {/* <Posts id={isVisitingOwnProfile ? authUser : userProfile[0]._id} /> */}
+
+        <Posts id={isVisitingOwnProfile ? authUser : passedId} />
+
+        {/* <Posts posts={userProfile[0].post} /> */}
       </GridItem>
       <GridItem
         pr="2"

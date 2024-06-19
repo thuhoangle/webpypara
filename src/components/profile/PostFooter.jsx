@@ -35,7 +35,7 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
   return (
     <>
       <Box className={'mb-5 mt-auto'}>
-        {post.comments.length > 3 && (
+        {post.comments?.length > 3 && (
           <Text fontSize="sm" color={'gray'} cursor={'pointer'}>
             View all {post.comments.length} comments
           </Text>

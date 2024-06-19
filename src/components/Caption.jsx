@@ -8,23 +8,17 @@ const Caption = ({ post }) => {
 
   return (
     <Flex gap={2}>
-      {/* <Link to={`/${userProfile.username}`}>
-        <Avatar src={userProfile.profilePicURL} size={'sm'} />
-      </Link> */}
       <Flex direction={'column'}>
         <Flex gap={2} alignItems={'center'}>
-          <Link to={`/${userProfile[0].username}`}>
-            <Text fontWeight={500} fontSize={14}>
-              {userProfile[0].username}'s hashtag:
-            </Text>
-          </Link>
+          {/* <Link to={`/${userProfile[0].username}`}> */}
+          <Text fontWeight={500} fontSize={14}>
+            Hashtag
+          </Text>
+          {/* </Link> */}
           <Text fontSize={14} className={'cursor-default'}>
             {post.tags}
           </Text>
         </Flex>
-        {/* <Text fontSize={12} color={'gray'} className={'cursor-default'}>
-          {timeAgo(post.postdate)}
-        </Text> */}
       </Flex>
     </Flex>
   );

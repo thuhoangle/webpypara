@@ -20,13 +20,13 @@ const SearchProfile = () => {
   // const btnRef = useRef()
   const searchRef = useRef(null);
   const { user, isLoading, getUserProfile, setUser } = useSearch();
+  console.log('🚀 ~ SearchProfile ~ user:', user);
   const handleSearchUser = (e) => {
     e.preventDefault();
     getUserProfile(searchRef.current.value);
     console.log('🚀 ~ SearchProfile ~ user:', user);
   };
 
-  console.log('SEARCHP', user);
   // ref={btnRef}
   return (
     <div>

@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react';
 // import { getUser } from '../services/theAPI';
 import useShowToast from '@/hook/useShowToast.js';
-import useProfileStore from '@/store/ProfileStore.js';
+// import useProfileStore from '@/store/ProfileStore.js';
 import usePostStore from '@/store/postStore.js';
+import { getUser } from '@/services/theAPI.js';
 
-const useGetPost = () => {
+const useGetPost = (id) => {
+  console.log('🚀 ~ useGetPost ~ id:', id);
   const [isLoading, setIsLoading] = useState(true);
   const { posts, setPosts } = usePostStore();
   const showToast = useShowToast();
-  const userProfile = useProfileStore((state) => state.userProfile);
+  // const userProfile = useProfileStore((state) => state.userProfile);
 
   useEffect(() => {
     const getPosts = async () => {
-      if (!userProfile) return;
+      if (!id) return;
       setIsLoading(true);
       setPosts([]);
 
       try {
         // const response = await getUser(userId);
-        const posts = userProfile[0].post;
+        const response = await getUser(id);
+        const posts = response.data[0].post;
         posts.sort((a, b) => {
           // Convert strings to Date objects
           const dateA = new Date(a.postdate);
@@ -29,14 +32,14 @@ const useGetPost = () => {
         });
         setPosts(posts);
       } catch (error) {
-        showToast('Error', error.message, 'error');
+        showToast('Error in useGetPost', error.message, 'error');
         setPosts([]);
       } finally {
         setIsLoading(false);
       }
     };
     getPosts();
-  }, [setPosts, userProfile, showToast]);
+  }, [setPosts, id, showToast]);
 
   return { isLoading, posts };
 };

@@ -81,8 +81,12 @@ function HeaderHome() {
             textColor="gray"
             bg="gray.50"
           >
-            {/* <Link to="/profile" as={RouterLink} alignItems={'center'}> */}
-            <Link to={`/${username}`} as={RouterLink} alignItems={'center'}>
+            <Link
+              to={authUser ? `/profile` : '/auth'}
+              as={RouterLink}
+              alignItems={'center'}
+            >
+              {/* <Link to={`/${username}`} as={RouterLink} alignItems={'center'}> */}
               <FaRegCircleUser
                 className={'text-gray-400 w-6 h-6 hover:text-gray-500'}
               />
