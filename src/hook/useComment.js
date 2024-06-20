@@ -12,10 +12,12 @@ const useComment = () => {
   //   const addComment = usePostStore((state) => state.addComment);
   //   const PostID = localStorage.getItem('PostID');
   const { userProfile } = useProfileStore();
+  // console.log('🚀 ~ useComment ~ userProfile:', userProfile?._id);
   // console.log('🚀 ~ useComment ~ userProfile:', userProfile[0]._id);
   const id = localStorage.getItem('ID');
   // console.log('🚀 ~ useComment ~ id:', id);
-  const username = localStorage.getItem('username');
+  const ownerId = localStorage.getItem('OwnerID');
+  const user = localStorage.getItem('username');
 
   const handlePostComment = async (PostID, comment) => {
     if (isCommenting) return;
@@ -23,20 +25,20 @@ const useComment = () => {
       return showToast('Error', 'You must be logged in to comment', 'error');
     setIsCommenting(true);
 
-    // const data = {
-    //   PostID: PostID,
-    //   OwnerPost: userProfile[0]._id,
-    //   UserName: username,
-    //   Text: comment,
-    // };
+    const data = {
+      PostID: PostID,
+      OwnerPost: userProfile?._id,
+      UserName: user,
+      Text: comment,
+    };
 
     try {
       await axios.post(
         `https://socialmedia-66ibb6pdga-uc.a.run.app/commentPost/${id}`,
         {
           PostID: PostID,
-          OwnerPost: userProfile[0]._id,
-          UserName: username,
+          OwnerPost: userProfile?._id,
+          UserName: user,
           Text: comment,
         },
         {
@@ -46,10 +48,11 @@ const useComment = () => {
           // data: data,
         }
       );
-
+      // console.log('🚀 ~ handlePostComment ~ data:', data);
       showToast('Success', 'Comment posted successfully', 'success');
     } catch (error) {
-      showToast('Error', error.message, 'error');
+      console.log('Error cmt', error.message);
+      // console.log('🚀 ~ handlePostComment ~ data:', data);
     } finally {
       setIsCommenting(false);
     }

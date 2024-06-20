@@ -55,7 +55,11 @@ const SearchProfile = () => {
               </Button>
             </DrawerFooter>
           </form>
-          {user && <SuggestUser user={user} setUser={setUser} />}
+          {/* {user && <SuggestUser user={user} setUser={setUser} />} */}
+          {user &&
+            user.map((u) => (
+              <SuggestUser key={u._id} user={u} setUser={setUser} />
+            ))}
         </DrawerContent>
       </Drawer>
     </div>

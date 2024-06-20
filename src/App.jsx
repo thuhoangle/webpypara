@@ -7,6 +7,7 @@ import useAuthStore from '@/store/authStore.js';
 
 function App() {
   const authUser = useAuthStore((state) => state.user);
+  console.log('🚀 ~ App ~ authUser:', authUser);
   const ID = localStorage.getItem('IDSearch');
 
   return (

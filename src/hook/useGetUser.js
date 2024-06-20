@@ -13,19 +13,16 @@ const useGetUser = (userId) => {
       setIsLoading(true);
       try {
         const response = await getUser(userId);
-        setUserProfile(response.data);
+        // console.log('🚀 ~ getUserProfile ~ response:', response.data[0]);
+        setUserProfile(response.data[0]);
       } catch (error) {
-        showToast('fetch failed', error.message, 'error');
+        console.log('fetch failed', error.message);
       } finally {
         setIsLoading(false);
       }
     };
     getUserProfile();
   }, [setUserProfile, userId, showToast]);
-
-  useEffect(() => {
-    console.log('Updated userProfile', userProfile); // Log userProfile after it has been updated
-  }, [userProfile]);
 
   return { isLoading, userProfile };
 };

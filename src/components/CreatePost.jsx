@@ -322,7 +322,7 @@ const CreatePost = () => {
       setNote('');
       setSelectedFiles([]);
     } catch (error) {
-      showToast('Error handleCreate', error.message, 'error');
+      console.log('Error handleCreate', error.message);
     }
   };
 

@@ -11,6 +11,11 @@ function HeaderHome() {
   const authUser = useAuthStore((state) => state.user);
   const username = localStorage.getItem('username');
 
+  const handleClick = () => {
+    console.log('clicked');
+    console.log('🚀 ~ HeaderHome ~ authUser:', authUser);
+  };
+
   // const menuItems = [
   //     {
   //         icon: <GoHomeFill className={'w-6 h-6 text-gray-600 '}/>,
@@ -82,7 +87,12 @@ function HeaderHome() {
             bg="gray.50"
           >
             <Link
-              to={authUser ? `/profile` : '/auth'}
+              onClick={handleClick}
+              // to={authUser ? `/profile` : '/auth'}
+              to={{
+                pathname: authUser ? `/profile` : '/auth',
+                state: { isVisitingOwnProfile: true },
+              }}
               as={RouterLink}
               alignItems={'center'}
             >

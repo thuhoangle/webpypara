@@ -16,7 +16,8 @@ const Caption = ({ post }) => {
           </Text>
           {/* </Link> */}
           <Text fontSize={14} className={'cursor-default'}>
-            {post.tags}
+            {/* {post.tags} */}
+            {post?.tags ? post?.tags : 'None'}
           </Text>
         </Flex>
       </Flex>

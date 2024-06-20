@@ -3,35 +3,13 @@ import { Grid, VStack, Box } from '@chakra-ui/react';
 import { Skeleton } from '@chakra-ui/react';
 import SinglePost from '@/components/profile/SinglePost.jsx';
 import useGetPost from '@/hook/useGetPost.jsx';
+import useGetUser from '@/hook/useGetUser.js';
 
 const Posts = ({ id }) => {
+  const { userProfile } = useGetUser(id);
+  // console.log('🚀🚀🚀🚀 ', userProfile._id);
+
   const { isLoading, posts } = useGetPost(id);
-
-  // useEffect(() => {
-  //   if (!isLoading && posts) {
-  //     setFetchedPosts(posts);
-  //   }
-  // }, [isLoading, posts]);
-
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [posts, setPosts] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const { isLoading, posts } = await useGetPost(id);
-  //       setPosts(posts);
-  //       setIsLoading(isLoading);
-  //     } catch (error) {
-  //       console.error('Error fetching posts:', error);
-  //       setPosts([]);
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [id]);
 
   useEffect(() => {}, [posts]);
 
@@ -61,7 +39,7 @@ const Posts = ({ id }) => {
       {!isLoading && (
         <>
           {posts.map((post, index) => (
-            <SinglePost key={index} post={post} />
+            <SinglePost key={index} post={post} userProfile={userProfile} />
           ))}
         </>
       )}

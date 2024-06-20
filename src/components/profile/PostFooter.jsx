@@ -16,28 +16,30 @@ import useSavePost from '@/hook/useSavePost.js';
 import { timeAgo } from '@/utils/timeAgo.js';
 import useProfileStore from '@/store/ProfileStore.js';
 
-const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
+const PostFooter = ({ post, isProfilePage, userId, user }) => {
+  console.log('🚀 ~ PostFooter ~ user:', userId);
   const { handleSavePost, isSaved, saves } = useSavePost(post);
   const { isCommenting, handlePostComment } = useComment();
   const [comment, setComment] = useState('');
   const authUser = useAuthStore((state) => state.user);
+  // console.log('🚀 ~ PostFooter ~ authUser:', authUser);
   const commentRef = useRef(null);
   const userProfile = useProfileStore((state) => state.userProfile);
 
   const handleSubmitComt = async () => {
-    await handlePostComment(post._id, comment);
+    await handlePostComment(post?._id, comment);
     setComment('');
   };
   const handleSave = () => {
-    handleSavePost(userProfile?.[0]?._id, post._id);
+    handleSavePost(userId, post?._id);
   };
 
   return (
     <>
       <Box className={'mb-5 mt-auto'}>
-        {post.comments?.length > 3 && (
+        {post?.comments?.length > 3 && (
           <Text fontSize="sm" color={'gray'} cursor={'pointer'}>
-            View all {post.comments.length} comments
+            View all {post?.comments?.length} comments
           </Text>
         )}
         <Divider mt={0} mb={3} bg={'gray.800'} />
@@ -63,7 +65,9 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
         {!isProfilePage && (
           <div className="flex flex-col ">
             <div className={'flex gap-2 text-sm items-center cursor-default'}>
-              <Text fontWeight={700}>{userProfile?.[0]?.username}</Text>
+              {/* <Text fontWeight={700}>{user?.username}</Text> */}
+              <Text fontWeight={700}>{user}</Text>
+
               <Text>{post.description}</Text>
             </div>
 

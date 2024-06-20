@@ -6,26 +6,28 @@ import { timeAgo } from '@/utils/timeAgo.js';
 import useProfileStore from '@/store/ProfileStore.js';
 
 const Comments = ({ comment }) => {
-  const { userProfile, isLoading } = useGetUser(comment._id);
+  const { userProfile, isLoading } = useGetUser(comment.userid);
+  const user = userProfile;
+  // console.log('🚀 ~ Comments!!!! ~ user:', user);
   //   console.log('🚀 ~ Comment ~ userProfile:', userProfile);
 
   if (isLoading) return <CommentSkeleton />;
 
   return (
     <Flex gap={2}>
-      <Link src={`/${userProfile[0].username}`}>
-        <Avatar src={userProfile[0].usericon.iconurl} size="sm" />
+      <Link src={`/${comment?.username}`}>
+        <Avatar src={user?.usericon.iconurl} size="sm" />
       </Link>
       <Flex direction="column">
         <Flex gap={2} alignItems={'center'}>
-          <Link src={`/${userProfile[0].username}`}>
+          <Link src={`/${comment?.username}`}>
             <Text fontWeight={'medium'} fontSize={14}>
-              {userProfile[0].username}
+              {comment?.username}
             </Text>
           </Link>
 
           <Text fontSize={14} className={'cursor-default'}>
-            {comment.text}
+            {comment?.text}
           </Text>
         </Flex>
         {/* <Text fontSize={12} color={'gray'} className={'cursor-default'}>

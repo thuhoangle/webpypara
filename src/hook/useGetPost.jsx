@@ -6,7 +6,7 @@ import usePostStore from '@/store/postStore.js';
 import { getUser } from '@/services/theAPI.js';
 
 const useGetPost = (id) => {
-  console.log('🚀 ~ useGetPost ~ id:', id);
+  // console.log('🚀 ~ useGetPost ~ id:', id);
   const [isLoading, setIsLoading] = useState(true);
   const { posts, setPosts } = usePostStore();
   const showToast = useShowToast();

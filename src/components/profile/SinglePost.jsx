@@ -13,10 +13,10 @@ import {
   VStack,
   Button,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PostFooter from '@/components/profile/PostFooter.jsx';
 import useAuthStore from '@/store/authStore.js';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useProfileStore from '@/store/ProfileStore.js';
 import usePostStore from '@/store/postStore.js';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
@@ -32,8 +32,34 @@ import {
 import { DotButton, useDotButton } from '@/components/carousel/carouselDot.jsx';
 import axios from 'axios';
 import Comments from '@/components/Comment.jsx';
+// import useGetUser from '@/hook/useGetUser.js';
+// import { Spinner } from '@chakra-ui/react';
 
-const SinglePost = ({ post }) => {
+// const LoadingIndicator = () => (
+//   <Flex
+//     className="w-full h-full items-center justify-center"
+//     bg="rgba(0,0,0,0.5)" // Semi-transparent black background
+//     position="absolute"
+//     top="0"
+//     left="0"
+//     right="0"
+//     bottom="0"
+//     zIndex="9999" // Ensures it's above other content
+//   >
+//     <Spinner size="xl" color="white" thickness="4px" />{' '}
+//   </Flex>
+// );
+
+const SinglePost = ({ post, userProfile }) => {
+  const user = userProfile;
+  const authUser = useAuthStore((state) => state.user);
+  const isVisitingOwnProfile = authUser == user._id;
+  // console.log('🚀 ~ SinglePost ~ isVisitingOwnProfile:', isVisitingOwnProfile);
+  const userLog = localStorage.getItem('username');
+  // console.log('🚀 ~ SinglePost ~ userLog:', userLog);
+  const userSearch = localStorage.getItem('userSearch');
+  // console.log('🚀 ~ SinglePost ~ userSearch:', userSearch);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [emblaRef, emblaApi] = useEmblaCarousel();
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
@@ -44,10 +70,15 @@ const SinglePost = ({ post }) => {
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-  const { userProfile } = useProfileStore();
-  const authUser = useAuthStore((state) => state.user);
+  // console.log('🚀 ~ SinglePost ~ authUser:', authUser);
   const showToast = useShowToast();
   const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
+  const imgurl = user?.usericon?.iconurl ?? 'https://bit.ly/broken-link';
+
+  const handleLink = () => {
+    return navigate(`/${user?.username}`);
+  };
 
   const handleDeletePost = async (postId) => {
     try {
@@ -185,20 +216,25 @@ const SinglePost = ({ post }) => {
                 flex={1}
                 className={'w-full  flex-col  pr-0 pl-1 pt-8 '}
               >
-                <Flex className={'items-center justify-between gap-2'}>
-                  <Link
+                <Flex className={'items-center  gap-3'} onClick={handleLink}>
+                  {/* <Link
                     to={`${userProfile[0]?.username}`}
                     className={'items-center flex justify-start gap-2'}
-                  >
-                    <Avatar
-                      src={userProfile[0]?.usericon.iconurl}
-                      size={'sm'}
-                    />
-                    <p className={'font-bold text-sm'}>
-                      {userProfile[0]?.username}
-                    </p>
-                  </Link>
-                  {authUser == userProfile[0]?._id && (
+                  > */}
+                  <Avatar src={imgurl} size={'sm'} />
+                  {/* 
+                  {imgurl ? (
+                    <Avatar src={imgurl} size={'sm'} />
+                  ) : (
+                    <Avatar src="https://bit.ly/broken-link" size={'sm'} />
+                  )} */}
+
+                  <p className={'font-bold w-fit text-sm'}>
+                    {/* {user?.username ? user?.username : 'User'} */}
+                    {isVisitingOwnProfile ? userLog : userSearch}
+                  </p>
+                  {/* </Link> */}
+                  {authUser == user?._id && (
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <Button
@@ -236,7 +272,13 @@ const SinglePost = ({ post }) => {
                     <Comments key={index} comment={comment} />
                   ))}
                 </VStack>
-                <PostFooter isProfilePic={true} post={post} />
+                <PostFooter
+                  isProfilePic={true}
+                  post={post}
+                  // user={user}
+                  userId={user?._id}
+                  user={isVisitingOwnProfile ? userLog : userSearch}
+                />
               </Flex>
             </Flex>
           </ModalBody>

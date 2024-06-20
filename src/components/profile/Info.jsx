@@ -14,12 +14,13 @@ import useGetUser from '@/hook/useGetUser.js';
 
 function Info(user) {
   const { isLoading, userProfile } = useGetUser(user.user);
+  // console.log('🚀 ~ userProfile:', userProfile);
   const { handleLogout, isLoggingOut } = useLogout();
   const authUser = useAuthStore((state) => state.user);
-  console.log('🚀ININFO ~ authUser:', authUser);
+  // console.log('🚀ININFO ~ authUser:', authUser);
   const { setUserProfile } = useProfileStore();
-  const userProfilee = userProfile[0];
-  console.log('🚀 ++++', userProfilee);
+  // const userProfile = userProfile[0];
+  // console.log('🚀 ++++', userProfile);
 
   // const { isLoading, user, getUserProfile } = useSearch();
 
@@ -29,9 +30,9 @@ function Info(user) {
   //   }
   // }, [user]);
 
-  const visitingOwnProfileAndAuth = authUser && authUser === userProfilee._id;
+  const visitingOwnProfileAndAuth = authUser && authUser === userProfile._id;
   const visitingAnotherProfileAndAuth =
-    authUser && authUser !== userProfilee._id;
+    authUser && authUser !== userProfile._id;
 
   return (
     <>
@@ -42,19 +43,19 @@ function Info(user) {
         borderBottom={'1px solid'}
       >
         {/* {userProfile[0].usericon && userProfile[0].usericon.iconurl ? ( */}
-        {userProfilee.usericon.iconurl ? (
+        {userProfile.usericon.iconurl ? (
           <AvatarGroup
             size={{ base: 'xl', md: '2xl' }}
             className={'justify-center self-start mx-auto'}
           >
             <Avatar
               name="profilePic"
-              src={userProfilee.usericon.iconurl}
+              src={userProfile.usericon.iconurl}
               alt={'Avatar'}
             />
           </AvatarGroup>
         ) : (
-          <DefaultAva name={userProfilee.user} />
+          <DefaultAva name={userProfile.user} />
         )}
 
         <VStack className={'items-start gap-1 mx-auto flex-1'}>
@@ -69,13 +70,13 @@ function Info(user) {
                 fontSize={{ base: 'xl', md: '2xl' }}
                 className=" font-semibold mr-4"
               >
-                {userProfilee.username}
+                {userProfile.username}
               </Text>
               <Text
                 fontSize={{ base: 'base', md: 'lg' }}
                 className=" font-normal mr-4"
               >
-                {userProfilee.user}
+                {userProfile.user}
               </Text>
             </div>
             {/*<Text fontSize={{base: 'md', md: 'lg'}} className="font-medium mr-4">a gate-keeping place</Text>*/}

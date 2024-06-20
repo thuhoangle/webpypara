@@ -14,10 +14,12 @@ const useSearch = () => {
     try {
       const response = await searchUser(username);
       if (response.data && response.data.length > 0) {
-        const user = response.data[0];
-        console.log('🚀##### ~ getUserProfile ~ user:', user.id);
+        const user = response.data;
+        console.log('🚀🚀🚀🚀🚀🚀🚀 ~ getUserProfile ~ data:', response.data);
 
-        localStorage.setItem('IDSearch', user.id);
+        // console.log('🚀##### ~ getUserProfile ~ user:', user.id);
+
+        // localStorage.setItem('IDSearch', user.id);
         setUser(user);
         // setUserProfile(user);
       } else {

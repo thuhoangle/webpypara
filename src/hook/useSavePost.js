@@ -25,6 +25,7 @@ const useSavePost = (post) => {
       UserId: userId,
       PostID: postID,
     });
+    console.log('🚀 ~ handleSavePost ~ data:', data);
 
     let config = {
       method: 'post',
