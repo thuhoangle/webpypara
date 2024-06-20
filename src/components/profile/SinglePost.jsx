@@ -53,7 +53,11 @@ import Comments from '@/components/Comment.jsx';
 const SinglePost = ({ post, userProfile }) => {
   const user = userProfile;
   const authUser = useAuthStore((state) => state.user);
-  const isVisitingOwnProfile = authUser == user._id;
+  console.log('🚀 ~ SinglePost ~ authUser:', authUser);
+  const passedId = localStorage.getItem('IDSearch');
+  console.log('🚀 ~ SinglePost ~ passedId:', passedId);
+  const isVisitingOwnProfile = authUser == passedId || passedId == null;
+  console.log('🚀 ~ SinglePost ~ isVisitingOwnProfile:', isVisitingOwnProfile);
   // console.log('🚀 ~ SinglePost ~ isVisitingOwnProfile:', isVisitingOwnProfile);
   const userLog = localStorage.getItem('username');
   // console.log('🚀 ~ SinglePost ~ userLog:', userLog);
@@ -234,7 +238,7 @@ const SinglePost = ({ post, userProfile }) => {
                     {isVisitingOwnProfile ? userLog : userSearch}
                   </p>
                   {/* </Link> */}
-                  {authUser == user?._id && (
+                  {isVisitingOwnProfile && (
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <Button
