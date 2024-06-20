@@ -54,10 +54,10 @@ const Profile = ({ id }) => {
         : authUser.ID
       : passedId;
   const { isLoading, userProfile } = useGetUser(passedId);
-  console.log('🚀 ~ Profile ~ noSearch:', noSearch);
+  // console.log('🚀 ~ Profile ~ noSearch:', noSearch);
 
   // console.log('🚀 ~ Profile ~ authUser:', authUser.ID);
-  console.log('🚀 ~ Profile ~ authUser:', authUser);
+  // console.log('🚀 ~ Profile ~ authUser:', authUser);
 
   // const { isLoading, userProfile } = useGetUser(
   //   typeof passedId === 'string' ? passedId : passedId.ID
@@ -73,7 +73,7 @@ const Profile = ({ id }) => {
   // (authUser && authUser.ID) === (passedId && passedId.ID);
   // (typeof authUser === 'string' ? authUser : authUser.ID) == passedId;
 
-  console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
+  // console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
 
   // (authUser && authUser.ID) === (passedId && passedId.ID);
 
@@ -88,10 +88,6 @@ const Profile = ({ id }) => {
       //   ? authUser
       //   : authUser.ID
       passedId;
-
-  if (theID === authUserID) {
-    console.log('t lam dun');
-  }
 
   if (userNotFound) return <UserNotFound />;
 

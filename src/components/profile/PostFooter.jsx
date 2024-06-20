@@ -17,7 +17,7 @@ import { timeAgo } from '@/utils/timeAgo.js';
 import useProfileStore from '@/store/ProfileStore.js';
 
 const PostFooter = ({ post, isProfilePage, userId, user }) => {
-  console.log('🚀 ~ PostFooter ~ user:', userId);
+  // console.log('🚀 ~ PostFooter ~ user:', userId);
   const { handleSavePost, isSaved, saves } = useSavePost(post);
   const { isCommenting, handlePostComment } = useComment();
   const [comment, setComment] = useState('');

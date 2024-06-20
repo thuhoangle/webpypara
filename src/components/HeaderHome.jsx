@@ -11,10 +11,10 @@ function HeaderHome() {
   const authUser = useAuthStore((state) => state.user);
   const username = localStorage.getItem('username');
 
-  const handleClick = () => {
-    console.log('clicked');
-    console.log('🚀 ~ HeaderHome ~ authUser:', authUser);
-  };
+  // const handleClick = () => {
+  //   console.log('clicked');
+  //   console.log('🚀 ~ HeaderHome ~ authUser:', authUser);
+  // };
 
   // const menuItems = [
   //     {
@@ -87,7 +87,7 @@ function HeaderHome() {
             bg="gray.50"
           >
             <Link
-              onClick={handleClick}
+              // onClick={handleClick}
               // to={authUser ? `/profile` : '/auth'}
               to={{
                 pathname: authUser ? `/profile` : '/auth',
