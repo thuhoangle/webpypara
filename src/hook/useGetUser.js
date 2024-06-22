@@ -4,6 +4,7 @@ import useProfileStore from '@/store/ProfileStore.js';
 import { getUser } from '../services/theAPI';
 
 const useGetUser = (userId) => {
+  // console.log('🚀 ~ useGetUser ~ userId:', userId);
   const [isLoading, setIsLoading] = useState(true);
   const showToast = useShowToast();
   const { userProfile, setUserProfile } = useProfileStore();

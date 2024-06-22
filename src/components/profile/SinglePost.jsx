@@ -52,17 +52,26 @@ import Comments from '@/components/Comment.jsx';
 
 const SinglePost = ({ post, userProfile }) => {
   const user = userProfile;
+  // console.log('🚀 ~ user:', user);
   const authUser = useAuthStore((state) => state.user);
-  console.log('🚀 ~ SinglePost ~ authUser:', authUser);
+  // console.log('🚀 ~ SinglePost ~ authUser:', authUser);
   const passedId = localStorage.getItem('IDSearch');
-  console.log('🚀 ~ SinglePost ~ passedId:', passedId);
+  // console.log('🚀 ~ SinglePost ~ passedId:', passedId);
   const isVisitingOwnProfile = authUser == passedId || passedId == null;
-  console.log('🚀 ~ SinglePost ~ isVisitingOwnProfile:', isVisitingOwnProfile);
   // console.log('🚀 ~ SinglePost ~ isVisitingOwnProfile:', isVisitingOwnProfile);
-  const userLog = localStorage.getItem('username');
-  // console.log('🚀 ~ SinglePost ~ userLog:', userLog);
+
+  // const userLog = localStorage.getItem('username')
+  //   ? localStorage.getItem('username')
+  //   : user.username;
+
+  const userLog = user.username
+    ? user.username
+    : localStorage.getItem('username');
+
+  // console.log('🚀 ~ :', post?.comments);
   const userSearch = localStorage.getItem('userSearch');
-  // console.log('🚀 ~ SinglePost ~ userSearch:', userSearch);
+  const daID = authUser.ID ? authUser.ID : authUser.InsertedID;
+  const authUserID = typeof authUser === 'string' ? authUser : daID;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [emblaRef, emblaApi] = useEmblaCarousel();
@@ -100,18 +109,18 @@ const SinglePost = ({ post, userProfile }) => {
         data: data,
       };
 
-      const response = await axios.request(config);
+      // const response = await axios.request(config);
 
-      if (response.status === 200) {
-        usePostStore.setState((state) => ({
-          posts: state.posts.filter((post) => post._id !== postId),
-        }));
-        showToast('Success', 'Post deleted successfully', 'success');
-      } else {
-        showToast('Error', 'Failed to delete post', 'error');
-      }
+      // if (response.status === 200) {
+      //   usePostStore.setState((state) => ({
+      //     posts: state.posts.filter((post) => post._id !== postId),
+      //   }));
+      usePostStore.setState((state) => ({
+        posts: state.posts.filter((post) => post?._id !== postId),
+      }));
+      showToast('Success', 'Post deleted successfully', 'success');
     } catch (error) {
-      showToast('Error', 'Error deleting post', 'error');
+      console.log('Error deleting post', postId);
     }
   };
 

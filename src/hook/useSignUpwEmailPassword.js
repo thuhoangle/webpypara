@@ -49,14 +49,13 @@ const useSignUpwEmailPassword = () => {
         localStorage.setItem('InsertedID', InsertedID);
         loginUser(signupData);
         console.log('sign up data', signupData);
-
         await IniUser();
-        navigate('/');
+        window.location.reload();
       } else {
         showToast('Error', 'Signup failed', 'error');
       }
     } catch (error) {
-      showToast('Error', error.message, 'error');
+      console.log('Error', error.message);
     } finally {
       setLoading(false);
     }

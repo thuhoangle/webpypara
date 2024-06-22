@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Alert,
   AlertIcon,
@@ -26,6 +26,7 @@ const SignUp = () => {
   const loginUser = useAuthStore((state) => state.login);
   const showToast = useShowToast();
   const navigate = useNavigate();
+  const [reload, setReload] = useState(false);
   const [inputs, setInputs] = useState({
     email: '',
     username: '',
@@ -139,18 +140,27 @@ const SignUp = () => {
         localStorage.setItem('InsertedID', InsertedID);
         loginUser(signupData);
         console.log('sign up data', signupData);
-
         await IniUser();
-        navigate('/');
+
+        setReload(true);
       } else {
-        showToast('Error', 'Signup failed', 'error');
+        console.log('Sign up failed', error.message);
       }
     } catch (error) {
-      showToast('Error', error.message, 'error');
+      console.log('Error', error.message);
     } finally {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    if (reload) {
+      // Perform necessary updates or data fetching
+      console.log('Page reloaded, update necessary data');
+
+      // Reset the reload flag
+      setReload(false);
+    }
+  }, [reload]);
 
   return (
     <>

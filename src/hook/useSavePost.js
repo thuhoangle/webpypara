@@ -6,12 +6,15 @@ import axios from 'axios';
 const useSavePost = (post) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const authUser = useAuthStore((state) => state.user);
+  const daID = authUser.ID ? authUser.ID : authUser.InsertedID;
+  const authUserID = typeof authUser === 'string' ? authUser : daID;
   const [saves, setSaves] = useState(post.likes.length);
   const [isSaved, setIsSaved] = useState(false);
   const showToast = useShowToast();
   // const userId = localStorage.getItem('InsertedID');
 
   const handleSavePost = async (userId, postID) => {
+    console.log('🚀 ~ handleSavePost ~ userId:', userId);
     if (isUpdating) return;
     if (!authUser)
       return showToast(
@@ -30,7 +33,7 @@ const useSavePost = (post) => {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `https://socialmedia-66ibb6pdga-uc.a.run.app/likePost/${authUser}`,
+      url: `https://socialmedia-66ibb6pdga-uc.a.run.app/likePost/${authUserID}`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -46,7 +49,7 @@ const useSavePost = (post) => {
         setSaves(saves + 1);
       })
       .catch((error) => {
-        showToast('Error', error.message, 'error');
+        console.log('Error', error.message);
       });
   };
 

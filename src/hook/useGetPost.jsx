@@ -32,7 +32,7 @@ const useGetPost = (id) => {
         });
         setPosts(posts);
       } catch (error) {
-        showToast('Error in useGetPost', error.message, 'error');
+        console.log('Error in useGetPost', error.message);
         setPosts([]);
       } finally {
         setIsLoading(false);

@@ -80,7 +80,7 @@ function HeaderHome() {
 
           {/*<Tooltip label={"Profile"} placement={'bottom'} openDelay={300} textColor='gray' bg='gray.50' >*/}
           <Tooltip
-            label={`/${username}`}
+            label={`profile`}
             placement={'bottom'}
             openDelay={300}
             textColor="gray"

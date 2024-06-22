@@ -347,9 +347,9 @@ const CreatePost = () => {
   };
 
   const resetProcess = () => {
-    setSelectedFiles([]);
     imageRef.current = [];
     onPicClose();
+    setSelectedFiles([]);
   };
 
   return (
@@ -513,6 +513,9 @@ const useCreatePost = () => {
   const { uploadImages } = usePreviewImg();
   const authUser = useAuthStore((state) => state.user);
   const id = localStorage.getItem('ID');
+  const theid = authUser.InsertedID ? authUser.InsertedID : id;
+  // const theid = id ? id : authUser.InsertedID;
+  console.log('🚀 ~ useCreatePost ~ theid:', theid);
 
   const handleCreatePost = async (selectedFiles, title, note) => {
     if (isLoading) return;
@@ -534,7 +537,7 @@ const useCreatePost = () => {
       };
 
       const response = await axios.post(
-        `https://socialmedia-66ibb6pdga-uc.a.run.app/createPost/${id}`,
+        `https://socialmedia-66ibb6pdga-uc.a.run.app/createPost/${theid}`,
         dataPost,
         {
           headers: {

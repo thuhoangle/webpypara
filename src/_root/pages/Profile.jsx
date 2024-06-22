@@ -26,6 +26,7 @@ const Profile = ({ id }) => {
   // const authUser = useAuthStore((state) => state.user);
   const passedId = localStorage.getItem('IDSearch');
   const authUser = useAuthStore((state) => state.user);
+  // console.log('🚀 ~ Profile ~ authUser:', authUser);
   const location = useLocation();
 
   // console.log('🚀 ~ Profile ~ passedId:', passedId);
@@ -47,12 +48,6 @@ const Profile = ({ id }) => {
   // const location = useLocation();
   // const passedId = location.state?.id || id;
 
-  const noSearch =
-    passedId === null
-      ? typeof authUser === 'string'
-        ? authUser
-        : authUser.ID
-      : passedId;
   const { isLoading, userProfile } = useGetUser(passedId);
   // console.log('🚀 ~ Profile ~ noSearch:', noSearch);
 
@@ -62,32 +57,21 @@ const Profile = ({ id }) => {
   // const { isLoading, userProfile } = useGetUser(
   //   typeof passedId === 'string' ? passedId : passedId.ID
   // );
+  const daID = authUser.ID ? authUser.ID : authUser.InsertedID;
+  const authUserID = typeof authUser === 'string' ? authUser : daID;
+  // console.log('🚀 ~ Profile ~ authUserID:', authUserID);
+  const noSearch = passedId === null ? authUserID : passedId;
 
-  const authUserID = typeof authUser === 'string' ? authUser : authUser.ID;
-  // const isVisitingOwnProfile = authUserID == noSearch;
   const isVisitingOwnProfileFromLink =
     location.state?.isVisitingOwnProfile || false;
   const isVisitingOwnProfile =
     authUserID == noSearch || isVisitingOwnProfileFromLink;
 
-  // (authUser && authUser.ID) === (passedId && passedId.ID);
-  // (typeof authUser === 'string' ? authUser : authUser.ID) == passedId;
-
-  // console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
-
-  // (authUser && authUser.ID) === (passedId && passedId.ID);
-
-  // (typeof authUser === 'string' ? authUser : authUser.ID)
-  // (typeof passedId === 'string' ? passedId : passedId.ID);
-
-  // console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
+  console.log('🚀 ~ Profile ~ isVisitingOwnProfile:', isVisitingOwnProfile);
   const userNotFound = !isLoading && !userProfile;
-  const theID = isVisitingOwnProfile
-    ? authUserID
-    : // typeof authUser === 'string'
-      //   ? authUser
-      //   : authUser.ID
-      passedId;
+  const theID = isVisitingOwnProfile ? authUserID : passedId;
+
+  // console.log('🚀 ~ Profile ~ theID:', theID);
 
   if (userNotFound) return <UserNotFound />;
 

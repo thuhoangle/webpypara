@@ -13,6 +13,7 @@ import useLogout from '@/hook/useLogout.js';
 
 const DropdownMenu = () => {
   const authUser = useAuthStore((state) => state.user);
+
   const { handleLogout } = useLogout();
 
   return (
@@ -73,7 +74,7 @@ const DropdownMenu = () => {
                   </div>
                 </Tooltip>
 
-                <Tooltip
+                {/* <Tooltip
                   label={'Profile'}
                   placement={'left'}
                   openDelay={300}
@@ -81,14 +82,16 @@ const DropdownMenu = () => {
                   bg="gray.50"
                 >
                   <Link
-                    to={`/${authUser?.username}`}
+                    to={{
+                      pathname: authUser ? `/profile` : '/auth',
+                      state: { isVisitingOwnProfile: true },
+                    }}
                     as={RouterLink}
-                    alignItems={'center'}
                     className={'rounded-full p-2 hover:bg-slate-50'}
                   >
                     <FaRegCircleUser className={'w-6 h-6 '} />
                   </Link>
-                </Tooltip>
+                </Tooltip> */}
 
                 <Tooltip
                   label={'Log out'}
