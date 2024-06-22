@@ -1,6 +1,6 @@
 # Webpybara - a social media website
-
-
+A photo archival blog.
+shout out to Ngô Gia, Đề Ba, Coffee Story, Zen, Sun Moon, E Minor for this project.
 
 ## Contributors
 
