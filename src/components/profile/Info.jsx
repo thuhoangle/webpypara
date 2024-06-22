@@ -14,21 +14,9 @@ import useGetUser from '@/hook/useGetUser.js';
 
 function Info(user) {
   const { isLoading, userProfile } = useGetUser(user.user);
-  // console.log('🚀 ~ userProfile:', userProfile);
   const { handleLogout, isLoggingOut } = useLogout();
   const authUser = useAuthStore((state) => state.user);
-  // console.log('🚀ININFO ~ authUser:', authUser);
   const { setUserProfile } = useProfileStore();
-  // const userProfile = userProfile[0];
-  // console.log('🚀 ++++', userProfile);
-
-  // const { isLoading, user, getUserProfile } = useSearch();
-
-  // useEffect(() => {
-  //   if (authUser) {
-  //     getUserProfile(authUser);
-  //   }
-  // }, [user]);
 
   const visitingOwnProfileAndAuth = authUser && authUser === userProfile._id;
   const visitingAnotherProfileAndAuth =
@@ -42,7 +30,6 @@ function Info(user) {
         direction={{ base: 'column', sm: 'row' }}
         borderBottom={'1px solid'}
       >
-        {/* {userProfile[0].usericon && userProfile[0].usericon.iconurl ? ( */}
         {userProfile.usericon.iconurl ? (
           <AvatarGroup
             size={{ base: 'xl', md: '2xl' }}
@@ -79,7 +66,6 @@ function Info(user) {
                 {userProfile.user}
               </Text>
             </div>
-            {/*<Text fontSize={{base: 'md', md: 'lg'}} className="font-medium mr-4">a gate-keeping place</Text>*/}
             {visitingOwnProfileAndAuth && (
               <div className={'flex flex-row justify-end gap-1'}>
                 <EditProfile />

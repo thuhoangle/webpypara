@@ -14,14 +14,6 @@ const useLogin = () => {
     password: '',
   });
 
-  // const handleInputChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setInputs((prev) => ({
-  //         ...prev,
-  //         [name]: value,
-  //     }));
-  // };
-
   const login = async (e) => {
     e.preventDefault();
     if (!inputs.email || !inputs.password) {

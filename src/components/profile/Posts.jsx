@@ -7,7 +7,6 @@ import useGetUser from '@/hook/useGetUser.js';
 
 const Posts = ({ id }) => {
   const { userProfile } = useGetUser(id);
-  // console.log('🚀🚀🚀🚀 ', userProfile._id);
 
   const { isLoading, posts } = useGetPost(id);
 

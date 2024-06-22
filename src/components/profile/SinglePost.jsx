@@ -52,23 +52,14 @@ import Comments from '@/components/Comment.jsx';
 
 const SinglePost = ({ post, userProfile }) => {
   const user = userProfile;
-  // console.log('🚀 ~ user:', user);
   const authUser = useAuthStore((state) => state.user);
-  // console.log('🚀 ~ SinglePost ~ authUser:', authUser);
   const passedId = localStorage.getItem('IDSearch');
-  // console.log('🚀 ~ SinglePost ~ passedId:', passedId);
   const isVisitingOwnProfile = authUser == passedId || passedId == null;
-  // console.log('🚀 ~ SinglePost ~ isVisitingOwnProfile:', isVisitingOwnProfile);
-
-  // const userLog = localStorage.getItem('username')
-  //   ? localStorage.getItem('username')
-  //   : user.username;
 
   const userLog = user.username
     ? user.username
     : localStorage.getItem('username');
 
-  // console.log('🚀 ~ :', post?.comments);
   const userSearch = localStorage.getItem('userSearch');
   const daID = authUser.ID ? authUser.ID : authUser.InsertedID;
   const authUserID = typeof authUser === 'string' ? authUser : daID;
@@ -108,13 +99,6 @@ const SinglePost = ({ post, userProfile }) => {
         },
         data: data,
       };
-
-      // const response = await axios.request(config);
-
-      // if (response.status === 200) {
-      //   usePostStore.setState((state) => ({
-      //     posts: state.posts.filter((post) => post._id !== postId),
-      //   }));
       usePostStore.setState((state) => ({
         posts: state.posts.filter((post) => post?._id !== postId),
       }));

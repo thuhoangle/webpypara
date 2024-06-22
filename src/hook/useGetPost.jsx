@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { getUser } from '../services/theAPI';
 import useShowToast from '@/hook/useShowToast.js';
-// import useProfileStore from '@/store/ProfileStore.js';
 import usePostStore from '@/store/postStore.js';
 import { getUser } from '@/services/theAPI.js';
 

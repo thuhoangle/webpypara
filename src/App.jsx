@@ -13,11 +13,6 @@ function App() {
   return (
     <PageLayout>
       <Routes>
-        {/* <Route path={'/'} element={ authUser? <Home /> : <Navigate to="/auth" /> }/>
-        <Route path={'/'} element={<Home />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/:username" element={<Profile />} />
-        <Route path="/profile" element={<Profile />} /> */}
         <Route
           path="/"
           element={authUser ? <Home /> : <Navigate to="/auth" />}
@@ -26,11 +21,6 @@ function App() {
           path="/auth"
           element={!authUser ? <AuthPage /> : <Navigate to="/" />}
         />
-        {/* <Route
-          path="/profile"
-          element={authUser ? <Profile /> : <Navigate to="/auth" />}
-        /> */}
-
         <Route
           path="/profile"
           element={

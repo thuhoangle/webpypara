@@ -8,14 +8,11 @@ const useComment = () => {
   const [isCommenting, setIsCommenting] = useState(false);
   const showToast = useShowToast();
   const authUser = useAuthStore((state) => state.user);
-  // const userProfile = usePostStore((state) => state.userProfile);
-  //   const addComment = usePostStore((state) => state.addComment);
-  //   const PostID = localStorage.getItem('PostID');
+
   const { userProfile } = useProfileStore();
-  // console.log('🚀 ~ useComment ~ userProfile:', userProfile?._id);
-  // console.log('🚀 ~ useComment ~ userProfile:', userProfile[0]._id);
+
   const id = localStorage.getItem('ID');
-  // console.log('🚀 ~ useComment ~ id:', id);
+
   const ownerId = localStorage.getItem('OwnerID');
   const user = localStorage.getItem('username');
 

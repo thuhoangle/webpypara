@@ -17,14 +17,11 @@ import SuggestUser from '@/components/search/SuggestUser.jsx';
 
 const SearchProfile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const btnRef = useRef()
   const searchRef = useRef(null);
   const { user, isLoading, getUserProfile, setUser } = useSearch();
-  // console.log('🚀 ~ SearchProfile ~ user:', user);
   const handleSearchUser = (e) => {
     e.preventDefault();
     getUserProfile(searchRef.current.value);
-    // console.log('🚀 ~ SearchProfile ~ user:', user);
   };
 
   // ref={btnRef}

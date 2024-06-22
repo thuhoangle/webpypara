@@ -4,10 +4,6 @@ import useAuthStore from './authStore';
 
 const usePostStore = create((set) => ({
   posts: [],
-  // setPosts: (newPost) =>
-  //   set((state) => ({
-  //     posts: [newPost, ...state.posts], // Assuming newPost is an object representing the newly created post
-  //   })),
   setPosts: (posts) => set({ posts }),
   // addComment: (postId, comment) =>
   //     set((state) => ({

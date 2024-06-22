@@ -12,7 +12,6 @@ function Header() {
     localStorage.removeItem('IDSearch');
   };
   return (
-    // <Box className={'fixed w-screen top-0 left-0 right-0 p-0 h-fit bg-blue-400'}>
     <div className={' w-screen top-0 left-0 right-0 p-0'}>
       <div className="my-2 flex justify-center bg-white  items-center ">
         <NavLink to={'/'}>
